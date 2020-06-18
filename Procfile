@@ -1,0 +1,1 @@
+web: java -jar target/imosaico-1.0.jar
