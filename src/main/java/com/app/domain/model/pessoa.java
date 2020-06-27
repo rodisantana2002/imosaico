@@ -29,6 +29,17 @@ public class pessoa extends core {
     private String estado;
     private String cep;
 
+    public pessoa() {
+    }
+
+    public pessoa(String email, String nomecompleto, String sexo, String fonecelular, String dtnascimento) {
+        this.email = email;
+        this.nomecompleto = nomecompleto;
+        this.sexo = sexo;
+        this.fonecelular = fonecelular;
+        this.dtnascimento = dtnascimento;
+    }
+
     public String getEmail() {
         return email;
     }

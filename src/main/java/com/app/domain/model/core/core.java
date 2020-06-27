@@ -20,8 +20,24 @@ public abstract class core implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
-    protected String dataRegistro;
+    private String dtregistro;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDtregistro() {
+        return dtregistro;
+    }
+
+    public void setDtregistro(String dtregistro) {
+        this.dtregistro = dtregistro;
+    }
 
 }

@@ -7,6 +7,8 @@ package com.app.domain.orm.repo;
 
 import com.app.domain.model.pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
+@Component("PessoaRepo")
 public interface PessoaRepo extends JpaRepository<pessoa, Long> {
 }
