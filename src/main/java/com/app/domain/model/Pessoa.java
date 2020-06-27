@@ -25,4 +25,5 @@ public class Pessoa extends Entity {
     private String cidade;
     private String estado;
     private String cep;
+
 }

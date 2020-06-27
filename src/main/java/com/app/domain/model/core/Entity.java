@@ -5,6 +5,7 @@
  */
 package com.app.domain.model.core;
 
+import java.io.Serializable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,10 +16,12 @@ import javax.persistence.MappedSuperclass;
  * @author Rodolfo Santana <RWS Informática>
  */
 @MappedSuperclass
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
+    protected String dataRegistro;
 
 }

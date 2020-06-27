@@ -20,7 +20,8 @@ package com.app;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Value;
 
-import org.springframework.boot.SpringApplication;
+import com.app.domain.model.Pessoa;
+import com.app.helpers.mensagens.clsPSR;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.stereotype.Controller;
@@ -45,7 +46,10 @@ public class Main {
 //  private DataSource dataSource;
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Main.class, args);
+//        SpringApplication.run(Main.class, args);
+        Pessoa pessoa = new Pessoa();
+
+        clsPSR.prt("teste");
     }
 //
 //  @RequestMapping("/")
