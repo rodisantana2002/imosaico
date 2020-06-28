@@ -11,7 +11,6 @@
 -- -- --
 -- -- SQLLite
 CREATE TABLE pessoa (  id SERIAL NOT NULL PRIMARY KEY,
-                        situacao VARCHAR(30) NULL,
                         email VARCHAR(100) NULL UNIQUE,
                         nomecompleto VARCHAR(100) NULL,
                         sexo VARCHAR(30) NULL,
