@@ -5,15 +5,51 @@
  */
 package com.app.domain.model;
 
+import com.app.domain.model.core.core;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 /**
  *
  * @author Rodolfo Santana <RWS Informática>
  */
-public class usuario {
-//    # acesso
-//    senha = db.Column(db.String(30))
-//    dtregistro = db.Column(db.DateTime, default=datetime.datetime.today())
-//    superuser = db.Column(db.String(12), default='False')
-//    token = db.Column(db.String(100))
+@Entity
+public class usuario extends core {
 
+    private String senha;
+    private String token;
+    private Boolean superuser;
+
+    @OneToOne
+    @JoinColumn(name = "idpessoa")
+    private pessoa pessoa;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public Boolean isSuperuser() {
+        return superuser;
+    }
+
+    public pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
 }

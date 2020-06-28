@@ -127,4 +127,22 @@ public class pessoa extends core {
     public void setCep(String cep) {
         this.cep = cep;
     }
+
+    public String toString() {
+        return "Pessoa {   id:" + getId() + ",\n"
+                + "           email:" + getEmail() + ",\n"
+                + "           nomecompleto:" + getNomecompleto() + ",\n"
+                + "           sexo:" + getSexo() + ",\n"
+                + "           fonecelular:" + getFonecelular() + ",\n"
+                + "           dtnascimento:" + getDtnascimento() + ",\n"
+                + "           logradouro:" + getLogradouro() + ",\n"
+                + "           numero:" + getNumero() + ",\n"
+                + "           complemento:" + getComplemento() + ",\n"
+                + "           cidade:" + getCidade() + ",\n"
+                + "           estado:" + getEstado() + ",\n"
+                + "           cep:" + getCep() + ",\n"
+                + "           dtregistro:" + getDtregistro() + "\n"
+                + "}";
+
+    }
 }

@@ -31,9 +31,10 @@ public class home {
 
     public void t() {
         pessoa pessoa = new pessoa("rodisantana2002@gmail.com", "Rodolfo Santana", "M", "41 999-2749", "05/07/1978");
-        pessoaRepo.save(pessoa);
+//        pessoaRepo.save(pessoa);
         List<pessoa> pessoas = pessoaRepo.findAll();
         clsPSR.prt(String.valueOf(pessoas.size()));
+        clsPSR.prt(pessoa.toString());
 
     }
 }

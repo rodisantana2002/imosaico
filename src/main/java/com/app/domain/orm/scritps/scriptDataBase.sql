@@ -7,9 +7,17 @@
  * Author:  Rodolfo Santana <RWS Informática>
  * Created: 27/06/2020
  */
-
 -- -- --
--- -- SQLLite
+
+--PARA LIMPEZA DAS TABELAS
+-- DELETE FROM sistema;
+-- DELETE FROM usuario;
+-- DELETE FROM pessoa;
+--
+DROP TABLE sistema;
+DROP TABLE usuario;
+DROP TABLE pessoa;
+
 CREATE TABLE pessoa (  id SERIAL NOT NULL PRIMARY KEY,
                         email VARCHAR(100) NULL UNIQUE,
                         nomecompleto VARCHAR(100) NULL,
@@ -23,14 +31,21 @@ CREATE TABLE pessoa (  id SERIAL NOT NULL PRIMARY KEY,
                         cidade VARCHAR(60) NULL,
                         estado VARCHAR(30) NULL,
                         cep VARCHAR(20) NULL,
-                        dtregistro VARCHAR(30)  NULL);
+                        dtregistro VARCHAR(30) NULL);
 CREATE INDEX idx_Pessoa_nomeCompleto ON pessoa (nomecompleto);
 
+CREATE TABLE usuario (  id SERIAL NOT NULL PRIMARY KEY,
+                        idpessoa BIGINT NOT NULL,
+                        senha VARCHAR(100) NULL,
+                        dtregistro VARCHAR(30)  NULL,
+                        token VARCHAR(300) NULL,
+                        superuser VARCHAR(12) NULL);
 
--- CREATE TABLE usuario (  id SERIAL NOT NULL PRIMARY KEY,
---                         idpessoa
---                         senha VARCHAR(300) NULL,
---                         dtregistro VARCHAR(30)  NULL,
---                         token VARCHAR(100) NULL,
---                         superuser VARCHAR(12) NULL);
--- CREATE INDEX idx_Usuario_nomeCompleto ON usuario (nomecompleto);
+CREATE TABLE sistema (  id SERIAL NOT NULL PRIMARY KEY,
+                        nome VARCHAR(100) NULL,
+                        tipo VARCHAR(30)  NULL,
+                        descricao VARCHAR(300) NULL,
+                        linguagem VARCHAR(50) NULL,
+                        dtregistro VARCHAR(30)  NULL);
+
+

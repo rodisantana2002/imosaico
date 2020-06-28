@@ -5,10 +5,20 @@
  */
 package com.app.domain.model;
 
+import com.app.domain.model.core.core;
+import javax.persistence.Entity;
+
 /**
  *
  * @author Rodolfo Santana <RWS Informática>
  */
-public class logregistro {
+@Entity
+public class logregistro extends core {
 
+    public logregistro() {
+    }
+
+    public String toString() {
+        return "";
+    }
 }
