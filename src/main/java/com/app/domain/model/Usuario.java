@@ -9,12 +9,14 @@ import com.app.domain.model.core.core;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Rodolfo Santana <RWS Informática>
  */
 @Entity
+@Table(name = "usuario")
 public class Usuario extends core {
 
     private String senha;

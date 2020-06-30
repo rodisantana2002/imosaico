@@ -6,9 +6,9 @@
 package com.app.domain.orm.repo;
 
 import com.app.domain.model.Pessoa;
+import com.app.domain.orm.core.Irepository;
 import com.app.domain.orm.core.repoGeneric;
 import org.springframework.stereotype.Repository;
-import com.app.domain.orm.core.Irepository;
 
 //public interface PessoaRepo extends CrudReposit<pessoa, Long> {
 //}

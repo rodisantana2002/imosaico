@@ -15,43 +15,21 @@ public class excMessages {
     //CRUDS
     public static final String STR_REG_JA_EXISTE = "Os dados informados já estão cadastrados.";
     public static final String STR_REG_NAO_EXISTE = "Os dados informados não foram Localizados ou não estão cadastrados no sistema.";
-    public static final String STR_REG_EM_ANDAMENTO = "O documento já esta em tramite na fila de publicações.";
     public static final String STR_DADOS_OBRIGATORIOS = "Os campos obrigatórios devem ser informados.";
-    public static final String STR_DATA_SUMISSAO_MENOR_DATA_PUBLICACAO = "A Data Submissão deve ser anterior a Data Publicação.";
-    public static final String STR_REG_AUTOR_IGUAL_COAUTOR = "Não é permitido o registro do Autor na relação de Participantes.";
-    public static final String STR_REG_AUTOR_NAO_EXISTE = "O Autor informado não esta cadastrado no sistema.";
-    public static final String STR_REG_DOCUMENTO_NAO_EXISTE = "O Artigo informado não esta cadastrado no sistema.";
 
     public static final String STR_OPERACAO_SUCESSO = "A operação foi realizada com sucesso";
     public static final String STR_OPERACAO_INSUCESSO = " A operação não pode ser realizada";
 
     //registro sucesso entity
-    public static final String STR_REG_AUTOR_SUCESSO = "Autor registrado com sucesso";
-    public static final String STR_REG_PARTICIPANTE_SUCESSO = "Participante registrado com sucesso";
     public static final String STR_REG_USUARIO_SUCESSO = "Usuário registrado com sucesso";
-    public static final String STR_REG_DESTINO_SUCESSO = "Repositório registrado com sucesso";
-    public static final String STR_REG_DOCUMENTO_SUCESSO = "Artigo registrado com sucesso";
-    public static final String STR_REG_SUBMISSAO_SUCESSO = "Submissão registrada com sucesso";
-    public static final String STR_REG_TIPO_DOCUMENTO_SUCESSO = "Tipo Artigo registrado com sucesso";
+    public static final String STR_REG_PESSOA_SUCESSO = "Pessoa registrada com sucesso";
+    public static final String STR_REG_SISTEMA_SUCESSO = "Sistema registrado com sucesso";
     public static final String STR_REG_USUARIO_ALTERAR_SENHA_SUCESSO = "Senha alterada com sucesso";
-    public static final String STR_REG_NOTIFICACAO_SUCESSO = "Notificação registrada com sucesso";
 
     //removido sucesso entity
-    public static final String STR_DEL_AUTOR_SUCESSO = "Autor removido do sistema com sucesso";
-    public static final String STR_DEL_PARTICIPANTE_SUCESSO = "Participante removido do sistema com sucesso";
     public static final String STR_DEL_USUARIO_SUCESSO = "Usuário removido do sistema com sucesso";
-    public static final String STR_DEL_DESTINO_SUCESSO = "Repositório removido do sistema com sucesso";
-    public static final String STR_DEL_DOCUMENTO_SUCESSO = "Artigo removido do sistema com sucesso";
-    public static final String STR_DEL_SUBMISSAO_SUCESSO = "Submissão removida do sistema com sucesso";
-    public static final String STR_DEL_TIPO_DOCUMENTO_SUCESSO = "Tipo Artigo removido do sistema com sucesso";
-    public static final String STR_DEL_NOTIFICACAO_SUCESSO = "Notificação removida do sistema com sucesso";
-
-    public static final String STR_DEL_VINCULO_DESTINO = "O Repositório não pode ser excluído pois já foi vinculado a uma Publicação. ";
-    public static final String STR_DEL_VINCULO_DOCUMENTO_FILA = "O Artigo não pode ser excluído pois já foi vinculado a uma Publicação. ";
-    public static final String STR_DEL_VINCULO_DOCUMENTO_PARTICIPANTE = "O Artigo não pode ser excluído pois já foi vinculado a um outro Participante. ";
-    public static final String STR_DEL_VINCULO_DOCUMENTO_FAVORITO = "O Artigo não pode ser excluído pois já foi adicionado na lista de Favoritos. ";
-
-    public static final String STR_DEL_VINCULO_PARTICIPANTE_DOCUMENTO = "O Autor não pode ser excluído pois já foi adicionado como participante de um Artigo. ";
+    public static final String STR_DEL_PESSOA_SUCESSO = "Pessoa removida do sistema com sucesso";
+    public static final String STR_DEL_SISTEMA_SUCESSO = "Sistema removido do sistema com sucesso";
 
     //SERVICES
     public static final Integer STATUS_OK = 200;

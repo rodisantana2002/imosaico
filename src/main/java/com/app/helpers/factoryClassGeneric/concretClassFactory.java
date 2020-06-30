@@ -36,10 +36,6 @@ public class concretClassFactory<T> {
         return getClass(strNameClass);
     }
 
-//    public T getFactoryRepository() {
-//        strNameClass = "repository.core.repo.concrets.repo" + entity.getClass().getSimpleName();
-//        return getClass(strNameClass);
-//    }
     private T getClass(String strPath) {
         try {
             return getInstances(strPath);

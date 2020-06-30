@@ -5,6 +5,7 @@ package com.app.service.business.core;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.app.service.business.bs.abstracts.bsGeneric;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface Ivalidator<T> {
 
-    public abstract List<String> validarRegras(T entity, String operacao);
+    public abstract List<String> validarRegras(T entity, String operacao, bsGeneric bs);
 
-    public abstract List<String> validarRegras(T entity, List<String> operacao);
+    public abstract List<String> validarRegras(T entity, List<String> operacao, bsGeneric bs);
 }

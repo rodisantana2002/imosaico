@@ -1,7 +1,6 @@
 package com.app.helpers.actions;
 
 import java.awt.event.ActionEvent;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javax.swing.AbstractAction;
 
@@ -38,7 +37,7 @@ public class clsTrataActionsDinamicas extends AbstractAction {
                     argClasses[i] = args[i].getClass();
                 }
             }
-            //prepara um novo metodo conforme o que foi repassado
+            //prepara um novo metodo conforme o que foi reobjClassepassado
             Method mid = objClasse.getMethod(methodName, argClasses);
             if (mid != null) {
                 if (args != null) {

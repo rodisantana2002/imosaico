@@ -7,6 +7,7 @@ package com.app.domain.model;
 
 import com.app.domain.model.core.core;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
  *
  */
 @Entity
+@Table(name = "pessoa")
 public class Pessoa extends core {
 
     private String email;

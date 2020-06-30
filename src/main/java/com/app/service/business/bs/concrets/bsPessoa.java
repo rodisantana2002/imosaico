@@ -6,11 +6,12 @@
 package com.app.service.business.bs.concrets;
 
 import com.app.domain.model.Pessoa;
+import com.app.domain.orm.core.Irepository;
+import com.app.service.business.bs.abstracts.bsGeneric;
+import com.app.service.business.core.Ibusiness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.app.domain.orm.core.Irepository;
-import com.app.service.business.bs.abstracts.bsGeneric;
 
 /**
  *
@@ -18,7 +19,7 @@ import com.app.service.business.bs.abstracts.bsGeneric;
  */
 @Service
 @Transactional
-public class bsPessoa extends bsGeneric<Pessoa> {
+public class bsPessoa extends bsGeneric<Pessoa> implements Ibusiness<Pessoa> {
 
     @Autowired
     private Irepository Dao;
