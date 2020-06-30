@@ -14,7 +14,7 @@ import javax.persistence.Entity;
  *
  */
 @Entity
-public class pessoa extends core {
+public class Pessoa extends core {
 
     private String email;
     private String nomecompleto;
@@ -29,10 +29,10 @@ public class pessoa extends core {
     private String estado;
     private String cep;
 
-    public pessoa() {
+    public Pessoa() {
     }
 
-    public pessoa(String email, String nomecompleto, String sexo, String fonecelular, String dtnascimento) {
+    public Pessoa(String email, String nomecompleto, String sexo, String fonecelular, String dtnascimento) {
         this.email = email;
         this.nomecompleto = nomecompleto;
         this.sexo = sexo;

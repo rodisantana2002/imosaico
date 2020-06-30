@@ -14,13 +14,17 @@ import java.util.function.Predicate;
  */
 public interface Ibusiness<T> {
 
-    public abstract T salvar(T entity);
+    public abstract void create(T entity);
 
-    public abstract boolean deletar(T entity);
+    public abstract T update(T entity);
+
+    public abstract void deletar(T entity);
+
+    public abstract void deletarById(T entity);
 
     public abstract T consultar(T entity);
 
-    public abstract List<T> listarAll(T entity);
+    public abstract List<T> listarAll();
 
     public abstract List<T> listarByFilter(T entity, Predicate<T> predicate);
 }

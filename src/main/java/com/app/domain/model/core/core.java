@@ -16,7 +16,7 @@ import javax.persistence.MappedSuperclass;
  * @author Rodolfo Santana <RWS Informática>
  */
 @MappedSuperclass
-public abstract class core implements Serializable {
+public abstract class core implements Serializable, Icore {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

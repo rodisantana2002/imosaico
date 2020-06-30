@@ -27,20 +27,19 @@ public class concretClassFactory<T> {
     }
 
     public T getFactoryValidator() {
-        strNameClass = "business.validator.concrets.valid" + entity.getClass().getSimpleName();
+        strNameClass = "com.app.service.business.validator.concrets.valid" + entity.getClass().getSimpleName();
         return getClass(strNameClass);
     }
 
     public T getFactoryBusiness() {
-        strNameClass = "business.bs.concrets.bs" + entity.getClass().getSimpleName();
+        strNameClass = "com.app.service.business.bs.concrets.bs" + entity.getClass().getSimpleName();
         return getClass(strNameClass);
     }
 
-    public T getFactoryRepository() {
-        strNameClass = "repository.core.repo.concrets.repo" + entity.getClass().getSimpleName();
-        return getClass(strNameClass);
-    }
-
+//    public T getFactoryRepository() {
+//        strNameClass = "repository.core.repo.concrets.repo" + entity.getClass().getSimpleName();
+//        return getClass(strNameClass);
+//    }
     private T getClass(String strPath) {
         try {
             return getInstances(strPath);

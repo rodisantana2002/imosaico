@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.app.domain.orm.repo;
+package com.app.domain.model.core;
 
 /**
  *
  * @author Rodolfo Santana <RWS Informática>
  */
-public interface UsuarioRepo {
+public interface Icore {
 
+    public Long getId();
+
+    public void setId(Long id);
 }

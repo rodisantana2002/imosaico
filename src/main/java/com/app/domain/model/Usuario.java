@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
  * @author Rodolfo Santana <RWS Informática>
  */
 @Entity
-public class usuario extends core {
+public class Usuario extends core {
 
     private String senha;
     private String token;
@@ -23,7 +23,7 @@ public class usuario extends core {
 
     @OneToOne
     @JoinColumn(name = "idpessoa")
-    private pessoa pessoa;
+    private Pessoa pessoa;
 
     public String getToken() {
         return token;
@@ -45,11 +45,11 @@ public class usuario extends core {
         return superuser;
     }
 
-    public pessoa getPessoa() {
+    public Pessoa getPessoa() {
         return pessoa;
     }
 
-    public void setPessoa(pessoa pessoa) {
+    public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
 }

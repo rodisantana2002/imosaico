@@ -3,12 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.app.domain.orm.repo;
+package com.app.domain.model;
+
+import com.app.domain.model.core.core;
+import javax.persistence.Entity;
 
 /**
  *
  * @author Rodolfo Santana <RWS Informática>
  */
-public interface LogregistroRepo {
+@Entity
+public class Logregistro extends core {
 
+    public Logregistro() {
+    }
+
+    public String toString() {
+        return "";
+    }
 }

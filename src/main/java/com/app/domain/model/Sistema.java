@@ -14,17 +14,17 @@ import javax.persistence.Entity;
  * @author Rodolfo Santana <RWS Informática>
  */
 @Entity
-public class sistema extends core {
+public class Sistema extends core {
 
     private String nome;
     private String descricao;
     private tiposistema tipo;
     private String linguagem;
 
-    public sistema() {
+    public Sistema() {
     }
 
-    public sistema(String nome, String descricao, String tipo, String linguagem) {
+    public Sistema(String nome, String descricao, String tipo, String linguagem) {
     }
 
     public String getNome() {
