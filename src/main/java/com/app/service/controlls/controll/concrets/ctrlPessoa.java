@@ -106,7 +106,7 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     private List<String> validar(Pessoa entity) {
         regras.add("validarCamposObrigatorios");
-        if (entity.getId() == null) {
+        if (entity.getId() != null) {
             regras.add("validarPessoaCadastrada");
         } else {
             regras.add("validarPessoaNaoCadastrada");

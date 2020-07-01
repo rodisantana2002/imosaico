@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="persistencia" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.app.domain.model.Pessoa</class>
-    <validation-mode>NONE</validation-mode>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-35-174-88-65.compute-1.amazonaws.com:5432/db0ljia7c0akkm"/>
-      <property name="javax.persistence.jdbc.user" value="jpfeolhjsxsrle"/>
-      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="98a0df124ade86b1637520162a589aa0c55d176e86572eea9c2ad929a03c0a0c"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="persistencia" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>com.app.domain.model.Pessoa</class>
+        <validation-mode>NONE</validation-mode>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-35-174-88-65.compute-1.amazonaws.com:5432/db0ljia7c0akkm"/>
+            <property name="javax.persistence.jdbc.user" value="jpfeolhjsxsrle"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="98a0df124ade86b1637520162a589aa0c55d176e86572eea9c2ad929a03c0a0c"/>
+        </properties>
+    </persistence-unit>
 </persistence>
