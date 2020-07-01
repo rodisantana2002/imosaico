@@ -28,19 +28,16 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     @Autowired
     private bsPessoa ibusiness;
-
     private Ivalidator<Pessoa> ivalidator;
-    private List<String> msgs, regras;
 
     public ctrlPessoa() {
         ivalidator = new validatorFactory<Pessoa>(new Pessoa()).getValidator();
-
-        msgs = new ArrayList<String>();
-        regras = new ArrayList<String>();
     }
 
     public List<String> salvar(Pessoa entity) {
+        List<String> msgs = new ArrayList<String>();
         msgs = validar(entity);
+
         if (msgs.isEmpty()) {
             if (entity.getId() == null) {
                 ibusiness.create(entity);
@@ -54,20 +51,25 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
         return msgs;
     }
 
-//    ///metodo personalizado para poder salvar e recuperar a Pessoa criada no momento
-//    ///da criação de um novo usuário ---utilizar sommente para essa situação
-//    public Pessoa salvarByUser(Pessoa entity) {
-//        Predicate<Pessoa> predEMail = p -> p.getEmail().equalsIgnoreCase(entity.getEmail());
-//        List<Pessoa> lstPessoas = ibusiness.listarByFilter(entity, predEMail);
-//
-//        if (!lstPessoas.isEmpty()) {
-//            return (Pessoa) lstPessoas.get(0);
-//        }
-//        return ibusiness.create(entity);
-//    }
+    ///metodo personalizado para poder salvar e recuperar a Pessoa criada no momento
+    ///da criação de um novo usuário ---utilizar sommente para essa situação
+    public Pessoa salvarByUser(Pessoa entity) {
+        Predicate<Pessoa> predEMail = p -> p.getEmail().equalsIgnoreCase(entity.getEmail());
+        List<Pessoa> lstPessoas = ibusiness.listarByFilter(entity, predEMail);
+
+        if (!lstPessoas.isEmpty()) {
+            return lstPessoas.get(0);
+        }
+
+        ibusiness.create(entity);
+        lstPessoas = ibusiness.listarByFilter(entity, predEMail);
+        return lstPessoas.get(0);
+    }
+
     @Override
     public List<String> deletar(Pessoa entity) {
-        msgs = validarDelete(entity);
+        List<String> msgs = validarDelete(entity);
+
         if (msgs.isEmpty()) {
             deletar(entity);
             msgs.add(excMessages.STR_DEL_PESSOA_SUCESSO);
@@ -97,16 +99,19 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
     }
 
     private List<String> validarDelete(Pessoa entity) {
+        List<String> regras = new ArrayList<String>();
+
         if (entity.getId() != null) {
             regras.add("validarPessoaNaoCadastrada");
-            regras.add("validarDocumentoVinculado");
         }
         return ivalidator.validarRegras(entity, regras, ibusiness);
     }
 
     private List<String> validar(Pessoa entity) {
+        List<String> regras = new ArrayList<String>();
         regras.add("validarCamposObrigatorios");
-        if (entity.getId() != null) {
+
+        if (entity.getId() == null) {
             regras.add("validarPessoaCadastrada");
         } else {
             regras.add("validarPessoaNaoCadastrada");

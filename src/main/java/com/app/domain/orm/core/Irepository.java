@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface Irepository<T> {
 
-    T findById(final long id);
+    T findById(Long id);
 
     List<T> findAll();
 

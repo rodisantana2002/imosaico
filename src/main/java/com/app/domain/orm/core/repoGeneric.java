@@ -25,7 +25,7 @@ public abstract class repoGeneric< T extends Serializable> {
         this.clazz = clazzToSet;
     }
 
-    public T findById(long id) {
+    public T findById(Long id) {
         return entityManager.find(clazz, id);
     }
 

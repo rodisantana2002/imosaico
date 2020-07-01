@@ -17,16 +17,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("v1/pessoas")
 public class restPessoa extends restController<Pessoa> {
-//    @Autowired
-//    bsPessoa pessoas;
-//    @Autowired
-//    ctrlPessoa ctrl;
-//
-//    @RequestMapping("/home")
-//    String index() {
-//
-//        Pessoa p = new Pessoa("rodisantana@gamil.com", "Jose", "M", "41 999274844", "05/07/1978");
-//        return ctrl.obter(18l).toString();
-//    }
-
 }

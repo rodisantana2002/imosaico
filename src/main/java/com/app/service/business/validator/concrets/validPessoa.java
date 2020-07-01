@@ -30,11 +30,16 @@ public class validPessoa extends validGeneric<Pessoa> {
         if (entity.getEmail() == null || entity.getEmail().trim().isEmpty()) {
             getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Email" + ").");
         }
+
+        if (entity.getFonecelular() == null || entity.getFonecelular().trim().isEmpty()) {
+            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Telefone Celular" + ").");
+        }
     }
 
     public void validarPessoaCadastrada(Pessoa entity, bsPessoa ibusiness) {
         Predicate<Pessoa> predID = p -> p.getId().equals(entity.getId());
         Predicate<Pessoa> predEMail = p -> p.getEmail().equalsIgnoreCase(entity.getEmail());
+        Predicate<Pessoa> predFoneCelular = p -> p.getFonecelular().equals(entity.getFonecelular());
 
         if (ibusiness.listarByFilter(entity, predID).size() > 0) {
             getLstMsg().add(excMessages.STR_REG_JA_EXISTE);
@@ -42,6 +47,10 @@ public class validPessoa extends validGeneric<Pessoa> {
 
         if (ibusiness.listarByFilter(entity, predEMail).size() > 0) {
             getLstMsg().add(excMessages.STR_REG_JA_EXISTE + " (Email já foi vinculado a outra Pessoa).");
+        }
+
+        if (ibusiness.listarByFilter(entity, predFoneCelular).size() > 0) {
+            getLstMsg().add(excMessages.STR_REG_JA_EXISTE + " (Telefone Celular já foi vinculado a outra Pessoa).");
         }
     }
 

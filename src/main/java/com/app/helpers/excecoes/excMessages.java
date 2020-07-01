@@ -14,7 +14,7 @@ public class excMessages {
 
     //CRUDS
     public static final String STR_REG_JA_EXISTE = "Os dados informados já estão cadastrados.";
-    public static final String STR_REG_NAO_EXISTE = "Os dados informados não foram Localizados ou não estão cadastrados no sistema.";
+    public static final String STR_REG_NAO_EXISTE = "Os dados informados não foram localizados ou não estão cadastrados no sistema.";
     public static final String STR_DADOS_OBRIGATORIOS = "Os campos obrigatórios devem ser informados.";
 
     public static final String STR_OPERACAO_SUCESSO = "A operação foi realizada com sucesso";

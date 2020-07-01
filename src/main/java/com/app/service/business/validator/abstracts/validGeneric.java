@@ -39,6 +39,7 @@ public abstract class validGeneric<T> implements Ivalidator<T> {
     ///classes concretas extendem
     @Override
     public List<String> validarRegras(T entity, String operacao, bsGeneric bs) {
+        lstMsg = new ArrayList<String>();
         actionsDinamicas = new clsTrataActionsDinamicas(this, operacao, entity, "");
         actionsDinamicas.executarMetodoDinamico();
         return lstMsg;
@@ -46,6 +47,7 @@ public abstract class validGeneric<T> implements Ivalidator<T> {
 
     @Override
     public List<String> validarRegras(T entity, List<String> operacao, bsGeneric bs) {
+        lstMsg = new ArrayList<String>();
         for (String strOperacao : operacao) {
             actionsDinamicas = new clsTrataActionsDinamicas(this, strOperacao, entity, bs);
             actionsDinamicas.executarMetodoDinamico();
