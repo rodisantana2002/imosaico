@@ -5,7 +5,7 @@
  */
 package com.app.domain.model;
 
-import com.app.domain.model.core.core;
+import com.app.domain.model.core.Core;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pessoa")
-public class Pessoa extends core {
+public class Pessoa extends Core {
 
     private String email;
     private String nomecompleto;

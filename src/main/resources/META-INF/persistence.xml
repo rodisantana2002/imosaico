@@ -3,6 +3,8 @@
     <persistence-unit name="persistencia" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>com.app.domain.model.Pessoa</class>
+        <class>com.app.domain.model.Sistema</class>
+        <class>com.app.domain.model.Logregistro</class>
         <validation-mode>NONE</validation-mode>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-35-174-88-65.compute-1.amazonaws.com:5432/db0ljia7c0akkm"/>

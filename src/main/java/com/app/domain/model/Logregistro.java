@@ -5,7 +5,7 @@
  */
 package com.app.domain.model;
 
-import com.app.domain.model.core.core;
+import com.app.domain.model.core.Core;
 import javax.persistence.Entity;
 
 /**
@@ -13,7 +13,7 @@ import javax.persistence.Entity;
  * @author Rodolfo Santana <RWS Informática>
  */
 @Entity
-public class Logregistro extends core {
+public class Logregistro extends Core {
 
     public Logregistro() {
     }

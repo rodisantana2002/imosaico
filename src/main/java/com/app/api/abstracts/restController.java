@@ -61,7 +61,7 @@ public abstract class restController<T> {
         String status;
 
         if (entity != null) {
-            BeanUtils.copyProperties(entity, json);
+            BeanUtils.copyProperties(json, entity);
             msg = this.controll.salvar(entity);
             status = "200 OK";
         } else {

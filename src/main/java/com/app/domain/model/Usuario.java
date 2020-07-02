@@ -5,7 +5,7 @@
  */
 package com.app.domain.model;
 
-import com.app.domain.model.core.core;
+import com.app.domain.model.core.Core;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuario")
-public class Usuario extends core {
+public class Usuario extends Core {
 
     private String senha;
     private String token;

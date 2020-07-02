@@ -5,26 +5,36 @@
  */
 package com.app.domain.model;
 
-import com.app.domain.model.core.core;
-import com.app.domain.model.core.tiposistema;
+import com.app.domain.model.core.Core;
+import com.app.domain.model.core.TipoSistema;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 /**
  *
  * @author Rodolfo Santana <RWS Informática>
  */
 @Entity
-public class Sistema extends core {
+@Table(name = "sistema")
+public class Sistema extends Core {
 
     private String nome;
     private String descricao;
-    private tiposistema tipo;
+
+    @Enumerated(EnumType.STRING)
+    private TipoSistema tipo;
     private String linguagem;
 
     public Sistema() {
     }
 
-    public Sistema(String nome, String descricao, String tipo, String linguagem) {
+    public Sistema(String nome, String descricao, TipoSistema tipo, String linguagem) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.tipo = tipo;
+        this.linguagem = linguagem;
     }
 
     public String getNome() {
@@ -35,11 +45,11 @@ public class Sistema extends core {
         this.nome = nome;
     }
 
-    public tiposistema getTipo() {
+    public TipoSistema getTipo() {
         return tipo;
     }
 
-    public void setTipo(tiposistema tipo) {
+    public void setTipo(TipoSistema tipo) {
         this.tipo = tipo;
     }
 

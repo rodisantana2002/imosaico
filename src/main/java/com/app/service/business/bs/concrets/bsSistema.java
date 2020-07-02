@@ -5,7 +5,7 @@
  */
 package com.app.service.business.bs.concrets;
 
-import com.app.domain.model.Pessoa;
+import com.app.domain.model.Sistema;
 import com.app.domain.orm.core.Irepository;
 import com.app.service.business.bs.abstracts.bsGeneric;
 import com.app.service.business.core.Ibusiness;
@@ -15,16 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Rodolfo
+ * @author Rodolfo Santana <RWS Informática>
  */
 @Service
 @Transactional
-public class bsPessoa extends bsGeneric<Pessoa> implements Ibusiness<Pessoa> {
+public class bsSistema extends bsGeneric<Sistema> implements Ibusiness<Sistema> {
 
     @Autowired
-    private Irepository<Pessoa> Dao;
+    private Irepository<Sistema> Dao;
 
-    public bsPessoa() {
+    public bsSistema() {
         super();
     }
 

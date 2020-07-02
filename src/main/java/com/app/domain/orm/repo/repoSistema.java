@@ -5,16 +5,21 @@
  */
 package com.app.domain.orm.repo;
 
-import com.app.domain.model.Pessoa;
+import com.app.domain.model.Sistema;
 import com.app.domain.orm.core.Irepository;
 import com.app.domain.orm.core.repoGeneric;
 import org.springframework.stereotype.Repository;
 
-@Repository("repoPessoa")
-public class repoPessoa extends repoGeneric<Pessoa> implements Irepository<Pessoa> {
+/**
+ *
+ * @author Rodolfo Santana <RWS Informática>
+ */
+@Repository("repoSistema")
+public class repoSistema extends repoGeneric<Sistema> implements Irepository<Sistema> {
 
-    public repoPessoa() {
+    public repoSistema() {
         super();
-        setClazz(Pessoa.class);
+        setClazz(Sistema.class);
     }
+
 }
