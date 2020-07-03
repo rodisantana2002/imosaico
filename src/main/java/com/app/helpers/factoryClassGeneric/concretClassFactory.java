@@ -21,18 +21,8 @@ public class concretClassFactory<T> {
         this.entity = entity;
     }
 
-    public T getControll() {
-        strNameClass = "controlls.controll.concrets.ctrl" + entity.getClass().getSimpleName();
-        return getClass(strNameClass);
-    }
-
     public T getFactoryValidator() {
         strNameClass = "com.app.service.business.validator.concrets.valid" + entity.getClass().getSimpleName();
-        return getClass(strNameClass);
-    }
-
-    public T getFactoryBusiness() {
-        strNameClass = "com.app.service.business.bs.concrets.bs" + entity.getClass().getSimpleName();
         return getClass(strNameClass);
     }
 
