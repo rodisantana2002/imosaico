@@ -27,6 +27,15 @@ public class Usuario extends Core {
     @JoinColumn(name = "idpessoa")
     private Pessoa pessoa;
 
+    public Usuario() {
+    }
+
+    public Usuario(String email, String senha) {
+        this.pessoa = new Pessoa();
+        this.pessoa.setEmail(email);
+        this.senha = senha;
+    }
+
     public String getToken() {
         return token;
     }

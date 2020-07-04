@@ -23,11 +23,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * // * @author Rodolfo //
  */
+@Service
+@Transactional
 public class ctrlUsuario implements Icontroll<Usuario> {
 
     @Autowired
@@ -45,21 +49,20 @@ public class ctrlUsuario implements Icontroll<Usuario> {
 
     @Override
     public List<String> salvar(Usuario entity) {
+        List<String> msgs = new ArrayList<String>();
         msgs = validarUsuario(entity);
-//        if (msgs.isEmpty()) {
-//            //se tudo ok..vai avaliar se precisa criar uma nova pessoa
-//            Pessoa pessoa = (Pessoa) ctrlPessoa.salvarByUser(entity.getPessoa());
-//
-//            if (pessoa != null) {
-//                entity.setPessoa(pessoa);
-//                if (ibusiness.(entity) != null) {
-//                    msgs.add(excMessages.STR_REG_USUARIO_SUCESSO);
-//                    return msgs;
-//                } else {
-//                    ctrlPessoa.deletar(pessoa);
-//                }
-//            }
-//        }
+
+        if (msgs.isEmpty()) {
+            //se tudo ok..vai avaliar se precisa criar uma nova pessoa
+            Pessoa pessoa = (Pessoa) ctrlPessoa.salvarByUser(entity.getPessoa());
+
+            if (pessoa != null) {
+                entity.setPessoa(pessoa);
+                ibusiness.create(entity);
+                msgs.add(excMessages.STR_REG_USUARIO_SUCESSO);
+                return msgs;
+            }
+        }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
         return msgs;
     }

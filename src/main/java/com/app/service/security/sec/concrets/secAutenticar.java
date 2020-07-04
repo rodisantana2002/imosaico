@@ -5,39 +5,48 @@
  */
 package com.app.service.security.sec.concrets;
 
+import com.app.domain.model.Usuario;
+import com.app.service.controlls.controll.concrets.ctrlUsuario;
+import com.app.service.security.core.Isecurity;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * // * // * @author Rodolfo //
  */
-//public class secAutenticar implements Isecurity<usuario> {
-//
-//    private ctrlUsuario ctrlusuario;
-//
-//    public secAutenticar() {
-//        ctrlusuario = new ctrlUsuario();
-//    }
-//
-//    @Override
-//    public List<String> autenticarUsuario(usuario entity) {
-//        return ctrlusuario.autenticarUsuario(entity);
-//    }
-//
-//    @Override
-//    public List<String> autenticarTokenUsuario(usuario entity) {
-//        return ctrlusuario.autenticarToken(entity);
-//    }
-//
-//    @Override
-//    public void efetuarLogout(usuario entity) {
-//        ctrlusuario.efetuarLogout(entity);
-//    }
-//
-//    @Override
-//    public usuario getUser(usuario entity) {
-//        //atualiza token na pessoa e retorna
-//        return ctrlusuario.atualizarToken(entity);
-//    }
-//
-//    public String enviarSenha(String email) {
-//        return ctrlusuario.enviarSenha(email);
-//    }
-//}
+@Service
+@Transactional
+public class secAutenticar implements Isecurity<Usuario> {
+
+    private ctrlUsuario ctrlusuario;
+
+    public secAutenticar() {
+        ctrlusuario = new ctrlUsuario();
+    }
+
+    @Override
+    public List<String> autenticarUsuario(Usuario entity) {
+        return ctrlusuario.autenticarUsuario(entity);
+    }
+
+    @Override
+    public List<String> autenticarTokenUsuario(Usuario entity) {
+        return ctrlusuario.autenticarToken(entity);
+    }
+
+    @Override
+    public void efetuarLogout(Usuario entity) {
+        ctrlusuario.efetuarLogout(entity);
+    }
+
+    @Override
+    public Usuario getUser(Usuario entity) {
+        //atualiza token na pessoa e retorna
+        return ctrlusuario.atualizarToken(entity);
+    }
+
+    public String enviarSenha(String email) {
+        return ctrlusuario.enviarSenha(email);
+    }
+}
