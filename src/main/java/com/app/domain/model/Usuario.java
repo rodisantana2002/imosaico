@@ -28,6 +28,7 @@ public class Usuario extends Core {
     private Pessoa pessoa;
 
     public Usuario() {
+        this.pessoa = new Pessoa();
     }
 
     public Usuario(String email, String senha) {
