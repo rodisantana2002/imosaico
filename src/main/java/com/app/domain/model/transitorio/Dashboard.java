@@ -9,6 +9,6 @@ package com.app.domain.model.transitorio;
  *
  * @author Rodolfo Santana <RWS Informática>
  */
-public class dashboard {
+public class Dashboard {
 
 }

@@ -6,6 +6,7 @@
 package com.app.domain.model;
 
 import com.app.domain.model.core.Core;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -19,6 +20,7 @@ import javax.persistence.Table;
 @Table(name = "usuario")
 public class Usuario extends Core {
 
+    @JsonIgnore
     private String senha;
     private String token;
     private Boolean superuser;
