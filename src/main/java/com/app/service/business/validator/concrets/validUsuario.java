@@ -57,26 +57,4 @@ public class validUsuario extends validGeneric<Usuario> {
             getLstMsg().add(excMessages.STR_REG_NAO_EXISTE);
         }
     }
-
-    public void validarAutenticacaoUsuario(Usuario entity, bsUsuario ibusiness) {
-        Predicate<Usuario> predEMail = p -> ((p.getPessoa().getEmail().equalsIgnoreCase(entity.getPessoa().getEmail())));
-
-        List<Usuario> lst = ibusiness.listarByFilter(entity, predEMail);
-        if (lst.isEmpty()) {
-            getLstMsg().add("Usuário não localizado!");
-        } else {
-            if (lst.get(0).getSenha() == null || !lst.get(0).getSenha().equals(entity.getSenha())) {
-                getLstMsg().add("Senha Incorreta!");
-            }
-        }
-    }
-
-    public void validarTokenUsuario(Usuario entity, bsUsuario ibusiness) {
-        Predicate<Usuario> predToken = p -> (p.getPessoa().getEmail().equalsIgnoreCase(entity.getPessoa().getEmail())
-                && p.getToken().equalsIgnoreCase(entity.getToken()));
-
-        if (ibusiness.listarByFilter(entity, predToken).isEmpty()) {
-            getLstMsg().add("O Token inválido ou expirado!");
-        }
-    }
 }

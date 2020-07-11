@@ -1,16 +1,14 @@
 package com.app.service.controlls.controll.concrets;
 
 import com.app.domain.model.Usuario;
-import java.util.ArrayList;
-import java.util.function.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Repository
 @Transactional
 public class ctrlSecurity implements UserDetailsService {
 
@@ -19,15 +17,11 @@ public class ctrlSecurity implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Predicate<Usuario> predEMail = p -> p.getPessoa().getEmail().equalsIgnoreCase(username);
-
-        Usuario user = new Usuario(username, "");
-        user = ctrUser.obterByFilter(user, predEMail).get(0);
+        Usuario user = ctrUser.obterByEmail(username);
 
         if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException("Usuaŕio não foi encontrado ou não esta correto: " + username);
         }
-        return new org.springframework.security.core.userdetails.User(user.getPessoa().getNomecompleto(), user.getSenha(), new ArrayList<>());
+        return user;
     }
-
 }

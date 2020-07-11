@@ -77,6 +77,13 @@ public class ctrlUsuario implements Icontroll<Usuario> {
         return ibusiness.listarByFilter(entity, predicate);
     }
 
+    public Usuario obterByEmail(String email) {
+        Predicate<Usuario> predEMail = p -> p.getPessoa().getEmail().equalsIgnoreCase(email);
+        Usuario entity = new Usuario();
+        entity.getPessoa().setEmail(email);
+        return ibusiness.listarByFilter(entity, predEMail).stream().findFirst().orElse(null);
+    }
+
     private List<String> validarDelete(Usuario entity) {
         if (entity.getId() != null) {
             regras.add("validarRegistroNaoCadastrado");
@@ -100,70 +107,3 @@ public class ctrlUsuario implements Icontroll<Usuario> {
     }
 
 }
-
-//    public List<String> autenticarUsuario(Usuario entity) {
-//        regras.add("validarAutenticacaoUsuario");
-//        return ivalidatorUsuario.validarRegras(entity, regras, ibusiness);
-//    }
-//
-//    public List<String> autenticarToken(Usuario entity) {
-//        regras.add("validarTokenUsuario");
-//        return ivalidatorUsuario.validarRegras(entity, regras, ibusiness);
-//    }
-//
-//    public Usuario atualizarToken(Usuario entity) {
-//        Random random = new SecureRandom();
-//        String token = new BigInteger(130, random).toString(32);
-//        Date dtDataHoraAtual = new Date();
-//        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//        Predicate<Usuario> predEMail = p -> p.getPessoa().getEmail().equalsIgnoreCase(entity.getPessoa().getEmail());
-//
-//        List<Usuario> lstUsuario = obterByFilter(entity, predEMail);
-//        Usuario Usuario = lstUsuario.get(0);
-//        Usuario.setToken(token);
-//        salvar(Usuario);
-//        Usuario.setSenha("");
-//        return Usuario;
-//    }
-//    public void efetuarLogout(Usuario entity) {
-//        Predicate<Usuario> predEMail = p -> p.getPessoa().getEmail().equalsIgnoreCase(entity.getPessoa().getEmail());
-//
-//        List<Usuario> lstUsuario = obterByFilter(entity, predEMail);
-//        Usuario Usuario = lstUsuario.get(0);
-//        Usuario.setToken(null);
-//        salvar(Usuario);
-//    }
-//    public String enviarSenha(String email) {
-//        Predicate<Usuario> predEMail = p -> p.getPessoa().getEmail().equals(email);
-//
-//        Usuario Usuario = new Usuario();
-//        Pessoa pessoa = new Pessoa();
-//        pessoa.setEmail(email);
-//        Usuario.setPessoa(pessoa);
-//
-//        List<Usuario> lstUsuario = obterByFilter(Usuario, predEMail);
-//
-//        if (lstUsuario.isEmpty()) {
-//            return excMessages.STR_EMAIL_NAO_CADASTRADO;
-//        } else {
-//            clsTrataEmail trataEmail = new clsTrataEmail();
-//            String endereco = email;
-//            String assunto = "Sistema Papers - reenvio de dados para acesso ao sistema";
-//            String conteudo = getEmailCorpo(lstUsuario.get(0)).toString();
-//            return trataEmail.enviarEmail(endereco, assunto, conteudo);
-//        }
-//    }
-//
-//    private StringBuilder getEmailCorpo(Usuario Usuario) {
-//        StringBuilder emailCorpo = new StringBuilder();
-//        emailCorpo.append("<h1>Olá, " + Usuario.getPessoa().getNomecompleto() + "!</h1>");
-//        emailCorpo.append("</br>");
-//        emailCorpo.append("<h3>Seguem os dados para o acesso ao sistema Papers: </h3>");
-//        emailCorpo.append("<h4>Usuário...: " + Usuario.getPessoa().getEmail() + "</h4>");
-//        emailCorpo.append("<h4>Senha.....: " + Usuario.getSenha() + "</h4>");
-//        emailCorpo.append("</br>");
-//        emailCorpo.append("</h4>Att, </h4>");
-//        emailCorpo.append("</br>");
-//        emailCorpo.append("</h4>Equipe Papers </h4>");
-//        return emailCorpo;
-//    }
