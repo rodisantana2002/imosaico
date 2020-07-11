@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 public class TokenAuthenticationService {
 
     // EXPIRATION_TIME = 10 dias
-    static final long EXPIRATION_TIME = 00_000_001;
+    static final long EXPIRATION_TIME = 000_100_000;
     static final String SECRET = "RodolfoSantanaMaisFodaQueNunca";
     static final String TOKEN_PREFIX = "Token";
     static final String HEADER_STRING = "Authorization";
