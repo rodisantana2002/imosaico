@@ -1,40 +1,25 @@
-# java-getting-started
+Central de Erros
 
-A barebones Java app, which can easily be deployed to Heroku.
+Objetivo
+-Em projetos modernos é cada vez mais comum o uso de arquiteturas baseadas em serviços ou microsserviços. Nestes ambientes complexos, erros podem surgir em diferentes camadas da aplicação (backend, frontend, mobile, desktop) e mesmo em serviços distintos. Desta forma, é muito importante que os desenvolvedores possam centralizar todos os registros de erros em um local, de onde podem monitorar e tomar decisões mais acertadas. Neste projeto vamos implementar uma API Rest para centralizar registros de erros de aplicações.
 
-This application supports the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
+Abaixo estão os requisitos desta API, o time terá total liberdade para tomar as decisões técnicas e de arquitetura da API, desde que atendam os requisitos abaixo.
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+API
+-Tecnologia
+-Utilizar a tecnologia base da aceleração para o desenvolvimento (Exemplo: Java, Node.js)
 
-## Running Locally
+Premissas
+-A API deve ser pensada para atender diretamente um front-end
+-Deve ser capaz de gravar os logs de erro em um banco de dados relacional
+-O acesso a ela deve ser permitido apenas por requisições que utilizem um token de acesso válido
 
-Make sure you have Java and Maven installed.  Also, install the [Heroku CLI](https://cli.heroku.com/).
-
-```sh
-$ git clone https://github.com/heroku/java-getting-started.git
-$ cd java-getting-started
-$ mvn install
-$ heroku local:start
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-If you're going to use a database, ensure you have a local `.env` file that reads something like this:
-
-```
-JDBC_DATABASE_URL=jdbc:postgresql://localhost:5432/java_database_name
-```
-
-## Deploying to Heroku
-
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-
-## Documentation
-
-For more information about using Java on Heroku, see these Dev Center articles:
-
-- [Java on Heroku](https://devcenter.heroku.com/categories/java)
+Funcionalidades
+-Deve permitir a autenticação do sistema que deseja utilizar a API gerando o Token de Acesso
+-Pode ser acessado por multiplos sistemas
+-Deve permitir gravar registros de eventos de log salvando informações de Level(error, warning, info), Descrição do Evento, LOG do Evento, ORIGEM(Sistema ou Serviço que originou o evento), DATA(Data do evento), QUANTIDADE(Quantidade de Eventos de mesmo tipo)
+-Deve permitir a listagem dos eventos juntamente com a filtragem de eventos por qualquer parâmetro especificado acima
+-Deve suportar Paginação
+-Deve suportar Ordenação por diferentes tipos de atributos
+-A consulta de listagem não deve retornar os LOGs dos Eventos
+-Deve permitir a busca de um evento por um ID, dessa maneira exibindo o LOG desse evento em específico

@@ -23,7 +23,7 @@ public class Pessoa extends Core {
     private String sexo;
     private String fonecelular;
     private String dtnascimento;
-
+    // endereco
     private String logradouro;
     private String numero;
     private String complemento;

@@ -68,4 +68,15 @@ public class Sistema extends Core {
     public void setLinguagem(String linguagem) {
         this.linguagem = linguagem;
     }
+
+    public String toString() {
+        return "Sistema{ id:" + this.getId() + ",\n"
+                + "       nome:" + this.nome + ",\n"
+                + "  descricao:" + this.descricao + ",\n"
+                + "       tipo:" + this.tipo + ",\n"
+                + "  linguagem:" + this.linguagem + ",\n"
+                + " dtregistro:" + this.getDtregistro() + ",\n"
+                + "}";
+    }
+
 }

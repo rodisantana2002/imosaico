@@ -102,4 +102,9 @@ public class ctrlSistema implements Icontroll<Sistema> {
         }
         return ivalidator.validarRegras(entity, regras, ibusiness);
     }
+
+    @Override
+    public String toString() {
+        return "Sistema";
+    }
 }

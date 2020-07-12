@@ -17,6 +17,7 @@
 DROP TABLE sistema;
 DROP TABLE usuario;
 DROP TABLE pessoa;
+-- DROP TABLE logregistro;
 
 CREATE TABLE pessoa (  id SERIAL NOT NULL PRIMARY KEY,
                         email VARCHAR(100) NULL UNIQUE,
@@ -31,21 +32,33 @@ CREATE TABLE pessoa (  id SERIAL NOT NULL PRIMARY KEY,
                         cidade VARCHAR(60) NULL,
                         estado VARCHAR(30) NULL,
                         cep VARCHAR(20) NULL,
-                        dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS'));
+                        dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS')
+);
 CREATE INDEX idx_Pessoa_nomeCompleto ON pessoa (nomecompleto);
 
 CREATE TABLE usuario (  id SERIAL NOT NULL PRIMARY KEY,
                         idpessoa BIGINT NOT NULL,
                         senha VARCHAR(100) NULL,
-                        token VARCHAR(300) NULL,
-                        superuser VARCHAR(12) NULL,
-                        dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS'));
+                        dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS')
+);
 
 CREATE TABLE sistema (  id SERIAL NOT NULL PRIMARY KEY,
                         nome VARCHAR(100) NULL,
                         tipo VARCHAR(30) NULL,
                         descricao VARCHAR(300) NULL,
                         linguagem VARCHAR(50) NULL,
-                        dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS'));
+                        dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS')
+);
 
+CREATE TABLE logregistro (id SERIAL NOT NULL PRIMARY KEY,
+                          tipo VARCHAR(30) NULL,
+                          descricao VARCHAR(500) NULL,
+                          log TEXT NULL,
+                          idsistema BIGINT NULL,
+                          qtde int NULL,
+                          dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS')
+);
+CREATE INDEX idx_LogRegistro_descricao ON logregistro (descricao);
+CREATE INDEX idx_LogRegistro_deregistro ON logregistro (dtregistro);
+CREATE INDEX idx_LogRegistro_tipo ON logregistro (tipo);
 

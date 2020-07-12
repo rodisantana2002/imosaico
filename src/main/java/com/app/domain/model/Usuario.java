@@ -27,8 +27,6 @@ public class Usuario extends Core implements UserDetails {
 
     @JsonIgnore
     private String senha;
-    private String token;
-    private Boolean superuser;
 
     @OneToOne
     @JoinColumn(name = "idpessoa")
@@ -43,18 +41,6 @@ public class Usuario extends Core implements UserDetails {
         this.pessoa = new Pessoa();
         this.pessoa.setEmail(email);
         this.senha = cripto.encode(senha);
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Boolean isSuperuser() {
-        return superuser;
     }
 
     public Pessoa getPessoa() {

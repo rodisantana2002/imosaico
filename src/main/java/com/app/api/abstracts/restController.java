@@ -9,6 +9,7 @@ package com.app.api.abstracts;
  *
  * @author Rodolfo Santana <RWS Informática>
  */
+import com.app.helpers.excecoes.excEntityNotFoundExcpetion;
 import com.app.helpers.excecoes.excMessages;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
@@ -39,23 +40,30 @@ public abstract class restController<T> {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody
     T get(@PathVariable Long id) {
-        return this.controll.obter(id);
+        T entity = this.controll.obter(id);
+        if (entity == null) {
+            throw new excEntityNotFoundExcpetion(this.controll.toString() + ":" + id + " não foi localizado!");
+        }
+        return entity;
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    Map<String, Object> create(@RequestBody T json) {
+    Map<String, Object> create(@RequestBody T json
+    ) {
         List<String> msg = this.controll.salvar(json);
 
         Map<String, Object> m = new HashMap<String, Object>();
-        m.put("status", true);
+        m.put("status", "201");
         m.put("msg", msg);
         return m;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    Map<String, Object> update(@PathVariable Long id, @RequestBody T json) {
+    Map<String, Object> update(@PathVariable Long id,
+            @RequestBody T json
+    ) {
         T entity = this.controll.obter(id);
         List<String> msg = new ArrayList<String>();
         String status;
@@ -66,7 +74,7 @@ public abstract class restController<T> {
             status = "200 OK";
         } else {
             msg.add(excMessages.STR_REG_NAO_EXISTE);
-            status = "404 = Not Found";
+            status = "404 - " + this.controll.toString() + ":" + id + " não foi localizado!";
         }
 
         Map<String, Object> m = new HashMap<String, Object>();
@@ -77,12 +85,25 @@ public abstract class restController<T> {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public @ResponseBody
-    Map<String, Object> delete(@PathVariable Long id) {
+    Map<String, Object> delete(@PathVariable Long id
+    ) {
         T entity = this.controll.obter(id);
+        List<String> msg = new ArrayList<String>();
+        String status;
 
-        this.controll.deletar(entity);
+        if (entity != null) {
+            this.controll.deletar(entity);
+            Map<String, Object> m = new HashMap<String, Object>();
+            m.put(this.controll.toString() + ":" + id + " foi deletado com sucesso!", true);
+            status = "204 OK";
+        } else {
+            msg.add(excMessages.STR_REG_NAO_EXISTE);
+            status = "404 - " + this.controll.toString() + ":" + id + " não foi localizado!";
+        }
+
         Map<String, Object> m = new HashMap<String, Object>();
-        m.put("success", true);
+        m.put("status", status);
+        m.put("msg", msg);
         return m;
     }
 }

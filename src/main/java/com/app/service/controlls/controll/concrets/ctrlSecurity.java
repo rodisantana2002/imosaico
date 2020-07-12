@@ -24,4 +24,9 @@ public class ctrlSecurity implements UserDetailsService {
         }
         return user;
     }
+
+    @Override
+    public String toString() {
+        return "Security";
+    }
 }

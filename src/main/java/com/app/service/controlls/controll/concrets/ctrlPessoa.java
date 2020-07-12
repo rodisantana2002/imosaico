@@ -118,4 +118,9 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
         }
         return ivalidator.validarRegras(entity, regras, ibusiness);
     }
+
+    @Override
+    public String toString() {
+        return "Pessoa";
+    }
 }
