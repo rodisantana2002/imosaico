@@ -6,15 +6,22 @@
 package com.app.domain.orm.repo;
 
 import com.app.domain.model.Pessoa;
-import com.app.domain.orm.core.Irepository;
-import com.app.domain.orm.core.repoGeneric;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ *
+ * @author Rodolfo Santana <RWS Informática>
+ */
 @Repository("repoPessoa")
-public class repoPessoa extends repoGeneric<Pessoa> implements Irepository<Pessoa> {
-
-    public repoPessoa() {
-        super();
-        setClazz(Pessoa.class);
-    }
+public interface repoPessoa extends PagingAndSortingRepository<Pessoa, Long> {
 }
+
+//@Repository("repoPessoa")
+//public class repoPessoa extends repoGeneric<Pessoa> implements Irepository<Pessoa> {
+//
+//    public repoPessoa() {
+//        super();
+//        setClazz(Pessoa.class);
+//    }
+//}

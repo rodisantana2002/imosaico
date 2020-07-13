@@ -6,8 +6,7 @@
 package com.app.domain.orm.repo;
 
 import com.app.domain.model.Sistema;
-import com.app.domain.orm.core.Irepository;
-import com.app.domain.orm.core.repoGeneric;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,11 +14,15 @@ import org.springframework.stereotype.Repository;
  * @author Rodolfo Santana <RWS Informática>
  */
 @Repository("repoSistema")
-public class repoSistema extends repoGeneric<Sistema> implements Irepository<Sistema> {
-
-    public repoSistema() {
-        super();
-        setClazz(Sistema.class);
-    }
-
+public interface repoSistema extends PagingAndSortingRepository<Sistema, Long> {
 }
+
+//@Repository("repoSistema")
+//public class repoSistema extends repoGeneric<Sistema> implements Irepository<Sistema> {
+//
+//    public repoSistema() {
+//        super();
+//        setClazz(Sistema.class);
+//    }
+//
+//}

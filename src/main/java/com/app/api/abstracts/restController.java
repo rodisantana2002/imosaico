@@ -40,7 +40,7 @@ public abstract class restController<T> {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody
     T get(@PathVariable Long id) {
-        T entity = this.controll.obter(id);
+        T entity = (T) this.controll.obter(id);
         if (entity == null) {
             throw new excEntityNotFoundExcpetion(this.controll.toString() + ":" + id + " não foi localizado!");
         }
@@ -64,7 +64,7 @@ public abstract class restController<T> {
     Map<String, Object> update(@PathVariable Long id,
             @RequestBody T json
     ) {
-        T entity = this.controll.obter(id);
+        T entity = (T) this.controll.obter(id);
         List<String> msg = new ArrayList<String>();
         String status;
 
@@ -87,7 +87,7 @@ public abstract class restController<T> {
     public @ResponseBody
     Map<String, Object> delete(@PathVariable Long id
     ) {
-        T entity = this.controll.obter(id);
+        T entity = (T) this.controll.obter(id);
         List<String> msg = new ArrayList<String>();
         String status;
 

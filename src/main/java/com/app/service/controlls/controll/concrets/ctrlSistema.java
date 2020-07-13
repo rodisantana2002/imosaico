@@ -13,6 +13,7 @@ import com.app.service.business.factory.validatorFactory;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,10 +65,10 @@ public class ctrlSistema implements Icontroll<Sistema> {
     }
 
     @Override
-    public Sistema obter(Long id) {
+    public Optional<Sistema> obter(Long id) {
         Sistema p = new Sistema();
         p.setId(id);
-        return (Sistema) ibusiness.consultar(p);
+        return ibusiness.consultar(p);
     }
 
     @Override

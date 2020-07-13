@@ -6,6 +6,7 @@ package com.app.service.business.core;
  * and open the template in the editor.
  */
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -14,7 +15,7 @@ import java.util.function.Predicate;
  */
 public interface Ibusiness<T> {
 
-    public abstract void create(T entity);
+    public abstract T create(T entity);
 
     public abstract T update(T entity);
 
@@ -22,7 +23,7 @@ public interface Ibusiness<T> {
 
     public abstract void deletarById(T entity);
 
-    public abstract T consultar(T entity);
+    public abstract Optional<T> consultar(T entity);
 
     public abstract List<T> listarAll();
 

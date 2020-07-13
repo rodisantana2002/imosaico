@@ -6,6 +6,7 @@
 package com.app.service.controlls.core;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -18,7 +19,7 @@ public interface Icontroll<T> {
 
     public abstract List<String> deletar(T entity);
 
-    public abstract T obter(Long id);
+    public abstract Optional<T> obter(Long id);
 
     public abstract List<T> obterTodos();
 

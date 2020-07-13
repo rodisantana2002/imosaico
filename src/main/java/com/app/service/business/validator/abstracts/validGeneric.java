@@ -1,7 +1,7 @@
 package com.app.service.business.validator.abstracts;
 
 import com.app.helpers.actions.clsTrataActionsDinamicas;
-import com.app.service.business.bs.abstracts.bsGeneric;
+import com.app.service.business.core.Ibusiness;
 import com.app.service.business.core.Ivalidator;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public abstract class validGeneric<T> implements Ivalidator<T> {
     /// a classe executora é a super classe abstrata a qual as demais
     ///classes concretas extendem
     @Override
-    public List<String> validarRegras(T entity, String operacao, bsGeneric bs) {
+    public List<String> validarRegras(T entity, String operacao, Ibusiness bs) {
         lstMsg = new ArrayList<String>();
         actionsDinamicas = new clsTrataActionsDinamicas(this, operacao, entity, "");
         actionsDinamicas.executarMetodoDinamico();
@@ -46,7 +46,7 @@ public abstract class validGeneric<T> implements Ivalidator<T> {
     }
 
     @Override
-    public List<String> validarRegras(T entity, List<String> operacao, bsGeneric bs) {
+    public List<String> validarRegras(T entity, List<String> operacao, Ibusiness bs) {
         lstMsg = new ArrayList<String>();
         for (String strOperacao : operacao) {
             actionsDinamicas = new clsTrataActionsDinamicas(this, strOperacao, entity, bs);
