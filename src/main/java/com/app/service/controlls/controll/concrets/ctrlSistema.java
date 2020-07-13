@@ -8,8 +8,7 @@ package com.app.service.controlls.controll.concrets;
 import com.app.domain.model.Sistema;
 import com.app.helpers.excecoes.excMessages;
 import com.app.service.business.bs.concrets.bsSistema;
-import com.app.service.business.core.Ivalidator;
-import com.app.service.business.factory.validatorFactory;
+import com.app.service.business.validator.concrets.validSistema;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +28,9 @@ public class ctrlSistema implements Icontroll<Sistema> {
 
     @Autowired
     private bsSistema ibusiness;
-    private Ivalidator<Sistema> ivalidator;
 
     public ctrlSistema() {
-        ivalidator = new validatorFactory<Sistema>(new Sistema()).getValidator();
+        super();
     }
 
     public List<String> salvar(Sistema entity) {
@@ -84,24 +82,27 @@ public class ctrlSistema implements Icontroll<Sistema> {
     }
 
     private List<String> validarDelete(Sistema entity) {
-        List<String> regras = new ArrayList<String>();
-
-        if (entity.getId() != null) {
-            regras.add("validarEntidadeNaoCadastrada");
-        }
-        return ivalidator.validarRegras(entity, regras, ibusiness);
+//        List<String> regras = new ArrayList<String>();
+//
+//        if (entity.getId() != null) {
+//            regras.add("validarEntidadeNaoCadastrada");
+//        }
+//        return ivalidator.validarRegras(entity, regras, ibusiness);
+        return null;
     }
 
     private List<String> validar(Sistema entity) {
-        List<String> regras = new ArrayList<String>();
-        regras.add("validarCamposObrigatorios");
+        validSistema validaDados = new validSistema();
+
+        validaDados.validarCamposObrigatorios(entity);
 
         if (entity.getId() == null) {
-            regras.add("validarEntidadeCadastrada");
+            validaDados.validarEntidadeCadastrada(entity, ibusiness);
         } else {
-            regras.add("validarEntidadeNaoCadastrada");
+            validaDados.validarEntidadeNaoCadastrada(entity, ibusiness);
         }
-        return ivalidator.validarRegras(entity, regras, ibusiness);
+
+        return validaDados.getLstMsg();
     }
 
     @Override

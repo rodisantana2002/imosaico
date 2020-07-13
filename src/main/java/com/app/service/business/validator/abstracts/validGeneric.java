@@ -1,8 +1,5 @@
 package com.app.service.business.validator.abstracts;
 
-import com.app.helpers.actions.clsTrataActionsDinamicas;
-import com.app.service.business.core.Ibusiness;
-import com.app.service.business.core.Ivalidator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +12,9 @@ import java.util.List;
  *
  * @author Rodolfo //
  */
-public abstract class validGeneric<T> implements Ivalidator<T> {
+public abstract class validGeneric<T> {
 
     private List<String> lstMsg;
-    private clsTrataActionsDinamicas actionsDinamicas;
 
     public validGeneric() {
         lstMsg = new ArrayList<String>();
@@ -30,28 +26,5 @@ public abstract class validGeneric<T> implements Ivalidator<T> {
 
     public void setLstMsg(List<String> lstMsg) {
         this.lstMsg = lstMsg;
-    }
-
-    ///Metodos que implementam o padrao COMMAND
-    /// os comandos/metodos são implementados nas classes conretas, mas
-    /// a chamada é definida e utilizada nas classes usuárias da mesma.
-    /// a classe executora é a super classe abstrata a qual as demais
-    ///classes concretas extendem
-    @Override
-    public List<String> validarRegras(T entity, String operacao, Ibusiness bs) {
-        lstMsg = new ArrayList<String>();
-        actionsDinamicas = new clsTrataActionsDinamicas(this, operacao, entity, "");
-        actionsDinamicas.executarMetodoDinamico();
-        return lstMsg;
-    }
-
-    @Override
-    public List<String> validarRegras(T entity, List<String> operacao, Ibusiness bs) {
-        lstMsg = new ArrayList<String>();
-        for (String strOperacao : operacao) {
-            actionsDinamicas = new clsTrataActionsDinamicas(this, strOperacao, entity, bs);
-            actionsDinamicas.executarMetodoDinamico();
-        }
-        return lstMsg;
     }
 }

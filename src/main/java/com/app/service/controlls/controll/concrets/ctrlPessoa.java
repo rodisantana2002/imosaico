@@ -8,8 +8,6 @@ package com.app.service.controlls.controll.concrets;
 import com.app.domain.model.Pessoa;
 import com.app.helpers.excecoes.excMessages;
 import com.app.service.business.bs.concrets.bsPessoa;
-import com.app.service.business.core.Ivalidator;
-import com.app.service.business.factory.validatorFactory;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +27,13 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     @Autowired
     private bsPessoa ibusiness;
-    private Ivalidator<Pessoa> ivalidator;
 
     public ctrlPessoa() {
-        ivalidator = new validatorFactory<Pessoa>(new Pessoa()).getValidator();
     }
 
     public List<String> salvar(Pessoa entity) {
         List<String> msgs = new ArrayList<String>();
-        msgs = validar(entity);
+//        msgs = validar(entity);
 
         if (msgs.isEmpty()) {
             if (entity.getId() == null) {
@@ -69,15 +65,16 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     @Override
     public List<String> deletar(Pessoa entity) {
-        List<String> msgs = validarDelete(entity);
-
-        if (msgs.isEmpty()) {
-            deletar(entity);
-            msgs.add(excMessages.STR_DEL_PESSOA_SUCESSO);
-            return msgs;
-        }
-        msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
-        return msgs;
+//        List<String> msgs = validarDelete(entity);
+//
+//        if (msgs.isEmpty()) {
+//            deletar(entity);
+//            msgs.add(excMessages.STR_DEL_PESSOA_SUCESSO);
+//            return msgs;
+//        }
+//        msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
+//        return msgs;
+        return null;
     }
 
     @Override
@@ -98,27 +95,27 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
         ArrayList<Pessoa> listaPessoa = (ArrayList<Pessoa>) ibusiness.listarByFilter(entity, predicate);
         return listaPessoa;
     }
-
-    private List<String> validarDelete(Pessoa entity) {
-        List<String> regras = new ArrayList<String>();
-
-        if (entity.getId() != null) {
-            regras.add("validarPessoaNaoCadastrada");
-        }
-        return ivalidator.validarRegras(entity, regras, ibusiness);
-    }
-
-    private List<String> validar(Pessoa entity) {
-        List<String> regras = new ArrayList<String>();
-        regras.add("validarCamposObrigatorios");
-
-        if (entity.getId() == null) {
-            regras.add("validarPessoaCadastrada");
-        } else {
-            regras.add("validarPessoaNaoCadastrada");
-        }
-        return ivalidator.validarRegras(entity, regras, ibusiness);
-    }
+//
+//    private List<String> validarDelete(Pessoa entity) {
+//        List<String> regras = new ArrayList<String>();
+//
+//        if (entity.getId() != null) {
+//            regras.add("validarPessoaNaoCadastrada");
+//        }
+//        return ivalidator.validarRegras(entity, regras, ibusiness);
+//    }
+//
+//    private List<String> validar(Pessoa entity) {
+//        List<String> regras = new ArrayList<String>();
+//        regras.add("validarCamposObrigatorios");
+//
+//        if (entity.getId() == null) {
+//            regras.add("validarPessoaCadastrada");
+//        } else {
+//            regras.add("validarPessoaNaoCadastrada");
+//        }
+//        return ivalidator.validarRegras(entity, regras, ibusiness);
+//    }
 
     @Override
     public String toString() {

@@ -25,6 +25,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class bsSistema implements Ibusiness<Sistema> {
 
+    public bsSistema() {
+        super();
+    }
+
     @Autowired
     private repoSistema iRepository;
 
@@ -65,12 +69,4 @@ public class bsSistema implements Ibusiness<Sistema> {
     public List<Sistema> listarAll() {
         return (List<Sistema>) iRepository.findAll();
     }
-//
-//    @Autowired
-//    private Irepository<Sistema> Dao;
-//
-//    public bsSistema() {
-//        super();
-//    }
-
 }

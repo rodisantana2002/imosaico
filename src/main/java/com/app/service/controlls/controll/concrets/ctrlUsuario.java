@@ -9,8 +9,6 @@ import com.app.domain.model.Pessoa;
 import com.app.domain.model.Usuario;
 import com.app.helpers.excecoes.excMessages;
 import com.app.service.business.bs.concrets.bsUsuario;
-import com.app.service.business.core.Ivalidator;
-import com.app.service.business.factory.validatorFactory;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +28,10 @@ public class ctrlUsuario implements Icontroll<Usuario> {
 
     @Autowired
     private bsUsuario ibusiness;
-    private Ivalidator<Usuario> ivalidatorUsuario;
     private ctrlPessoa ctrlPessoa;
     private List<String> msgs, regras;
 
     public ctrlUsuario() {
-        ivalidatorUsuario = new validatorFactory<Usuario>(new Usuario()).getValidator();
         ctrlPessoa = new ctrlPessoa();
         msgs = new ArrayList<String>();
         regras = new ArrayList<String>();
@@ -44,7 +40,7 @@ public class ctrlUsuario implements Icontroll<Usuario> {
     @Override
     public List<String> salvar(Usuario entity) {
         List<String> msgs = new ArrayList<String>();
-        msgs = validarUsuario(entity);
+//        msgs = validarUsuario(entity);
 
         if (msgs.isEmpty()) {
             //se tudo ok..vai avaliar se precisa criar uma nova pessoa
@@ -84,23 +80,23 @@ public class ctrlUsuario implements Icontroll<Usuario> {
         entity.getPessoa().setEmail(email);
         return ibusiness.listarByFilter(entity, predEMail).stream().findFirst().orElse(null);
     }
-
-    private List<String> validarDelete(Usuario entity) {
-        if (entity.getId() != null) {
-            regras.add("validarRegistroNaoCadastrado");
-        }
-        return ivalidatorUsuario.validarRegras(entity, regras, ibusiness);
-    }
-
-    private List<String> validarUsuario(Usuario entity) {
-        regras.add("validarCamposObrigatorios");
-        if (entity.getId() == null) {
-            regras.add("validarRegistroCadastrado");
-        } else {
-            regras.add("validarRegistroNaoCadastrado");
-        }
-        return ivalidatorUsuario.validarRegras(entity, regras, ibusiness);
-    }
+//
+//    private List<String> validarDelete(Usuario entity) {
+//        if (entity.getId() != null) {
+//            regras.add("validarRegistroNaoCadastrado");
+//        }
+//        return ivalidatorUsuario.validarRegras(entity, regras, ibusiness);
+//    }
+//
+//    private List<String> validarUsuario(Usuario entity) {
+//        regras.add("validarCamposObrigatorios");
+//        if (entity.getId() == null) {
+//            regras.add("validarRegistroCadastrado");
+//        } else {
+//            regras.add("validarRegistroNaoCadastrado");
+//        }
+//        return ivalidatorUsuario.validarRegras(entity, regras, ibusiness);
+//    }
 
     @Override
     public List<String> deletar(Usuario entity) {

@@ -66,14 +66,3 @@ public class bsPessoa implements Ibusiness<Pessoa> {
         return (List<Pessoa>) iRepository.findAll();
     }
 }
-
-//public class bsPessoa extends bsGeneric<Pessoa> implements Ibusiness<Pessoa> {
-//
-//    @Autowired
-//    private Irepository<Pessoa> Dao;
-//
-//    public bsPessoa() {
-//        super();
-//    }
-//
-//}

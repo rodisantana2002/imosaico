@@ -7,7 +7,7 @@ package com.app.service.business.validator.concrets;
 
 import com.app.domain.model.Sistema;
 import com.app.helpers.excecoes.excMessages;
-import com.app.service.business.core.Ibusiness;
+import com.app.service.business.bs.concrets.bsSistema;
 import com.app.service.business.validator.abstracts.validGeneric;
 import java.util.function.Predicate;
 
@@ -20,7 +20,7 @@ public class validSistema extends validGeneric<Sistema> {
         super();
     }
 
-    public void validarCamposObrigatorios(Sistema entity, Ibusiness<Sistema> ibusiness) {
+    public void validarCamposObrigatorios(Sistema entity) {
         if (entity.getId() != null && entity.getId() == 0) {
             getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Identificador" + ").");
         }
@@ -38,7 +38,7 @@ public class validSistema extends validGeneric<Sistema> {
         }
     }
 
-    public void validarEntidadeCadastrada(Sistema entity, Ibusiness<Sistema> ibusiness) {
+    public void validarEntidadeCadastrada(Sistema entity, bsSistema ibusiness) {
         Predicate<Sistema> predID = p -> p.getId().equals(entity.getId());
         Predicate<Sistema> predNome = p -> p.getNome().equalsIgnoreCase(entity.getNome());
 
@@ -51,10 +51,11 @@ public class validSistema extends validGeneric<Sistema> {
         }
     }
 
-    public void validarEntidadeNaoCadastrada(Sistema entity, Ibusiness<Sistema> ibusiness) {
+    public void validarEntidadeNaoCadastrada(Sistema entity, bsSistema ibusiness) {
         Predicate<Sistema> predID = p -> p.getId().equals(entity.getId());
         if (ibusiness.listarByFilter(entity, predID).isEmpty()) {
             getLstMsg().add(excMessages.STR_REG_NAO_EXISTE);
         }
     }
+
 }

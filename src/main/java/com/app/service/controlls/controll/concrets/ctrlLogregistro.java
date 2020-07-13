@@ -8,8 +8,6 @@ package com.app.service.controlls.controll.concrets;
 import com.app.domain.model.Logregistro;
 import com.app.helpers.excecoes.excMessages;
 import com.app.service.business.bs.concrets.bsLogregistro;
-import com.app.service.business.core.Ivalidator;
-import com.app.service.business.factory.validatorFactory;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +26,7 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
     @Autowired
     private bsLogregistro ibusiness;
 
-    private Ivalidator<Logregistro> ivalidator;
-
     public ctrlLogregistro() {
-        ivalidator = new validatorFactory<Logregistro>(new Logregistro()).getValidator();
     }
 
     @Override

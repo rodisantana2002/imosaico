@@ -1,5 +1,6 @@
 package com.app.helpers.actions;
 
+import com.app.helpers.mensagens.clsPSR;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Method;
 import javax.swing.AbstractAction;
@@ -39,6 +40,7 @@ public class clsTrataActionsDinamicas extends AbstractAction {
             }
             //prepara um novo metodo conforme o que foi reobjClassepassado
             Method mid = objClasse.getMethod(methodName, argClasses);
+            clsPSR.prt(argClasses.toString());
             if (mid != null) {
                 if (args != null) {
                     //invoca com argumentos
@@ -69,6 +71,7 @@ public class clsTrataActionsDinamicas extends AbstractAction {
             }
             //prepara um novo metodo conforme o que foi repassado
             Method mid = objClasse.getMethod(methodName, argClasses);
+            clsPSR.prt(argClasses.toString());
             if (mid != null) {
                 if (args != null) {
                     //invoca e retorne com argumentos

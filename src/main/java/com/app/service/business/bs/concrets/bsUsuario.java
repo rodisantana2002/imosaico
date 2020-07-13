@@ -65,11 +65,4 @@ public class bsUsuario implements Ibusiness<Usuario> {
     public List<Usuario> listarAll() {
         return (List<Usuario>) iRepository.findAll();
     }
-
-//    @Autowired
-//    private Irepository<Usuario> Dao;
-//
-//    public bsUsuario() {
-//        super();
-//    }
 }
