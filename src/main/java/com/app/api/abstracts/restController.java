@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -52,18 +53,19 @@ public abstract class restController<T> {
         m.put("SortBy", sortBy);
         m.put("Direction", direction);
         m.put("PageTotal", Integer.divideUnsigned(all.size(), pageSize));
-        m.put(this.controll.toString(), list);
+        m.put(this.controll.toString() + "s", list);
         return m;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public @ResponseBody
     T get(@PathVariable Long id) {
-        T entity = (T) this.controll.obter(id);
-        if (entity == null) {
+        Optional<T> entity = this.controll.obter(id);
+
+        if (!entity.isPresent()) {
             throw new excEntityNotFoundExcpetion(this.controll.toString() + ":" + id + " não foi localizado!");
         }
-        return entity;
+        return entity.get();
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -82,13 +84,14 @@ public abstract class restController<T> {
     Map<String, Object> update(@PathVariable Long id,
             @RequestBody T json
     ) {
-        T entity = (T) this.controll.obter(id);
+        Optional<T> entity = this.controll.obter(id);
+
         List<String> msg = new ArrayList<String>();
         String status;
 
-        if (entity != null) {
+        if (entity.isPresent()) {
             BeanUtils.copyProperties(json, entity);
-            msg = this.controll.salvar(entity);
+            msg = this.controll.salvar(entity.get());
             status = "200 OK";
         } else {
             msg.add(excMessages.STR_REG_NAO_EXISTE);
@@ -105,12 +108,12 @@ public abstract class restController<T> {
     public @ResponseBody
     Map<String, Object> delete(@PathVariable Long id
     ) {
-        T entity = (T) this.controll.obter(id);
+        Optional<T> entity = this.controll.obter(id);
         List<String> msg = new ArrayList<String>();
         String status;
 
-        if (entity != null) {
-            this.controll.deletar(entity);
+        if (entity.isPresent()) {
+            this.controll.deletar(entity.get());
             Map<String, Object> m = new HashMap<String, Object>();
             m.put(this.controll.toString() + ":" + id + " foi deletado com sucesso!", true);
             status = "204 OK";

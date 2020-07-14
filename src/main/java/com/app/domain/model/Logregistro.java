@@ -7,6 +7,7 @@ package com.app.domain.model;
 
 import com.app.domain.model.core.Core;
 import com.app.domain.model.core.Level;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,8 +26,10 @@ public class Logregistro extends Core {
     @Enumerated(EnumType.STRING)
     private Level tipo;
     private String descricao;
-    private String log;
     private Integer qtde;
+
+    @JsonIgnore
+    private String log;
 
     @OneToOne
     @JoinColumn(name = "idsistema")

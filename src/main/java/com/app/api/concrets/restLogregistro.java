@@ -5,6 +5,8 @@
  */
 package com.app.api.concrets;
 
+import com.app.api.abstracts.restController;
+import com.app.domain.model.Logregistro;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,5 +16,5 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("v1/logs")
-public class restLogregistro {
+public class restLogregistro extends restController<Logregistro> {
 }

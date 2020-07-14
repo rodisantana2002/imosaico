@@ -101,4 +101,9 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
         }
         return validaDados.getMessages();
     }
+
+    @Override
+    public String toString() {
+        return "Logregistro";
+    }
 }
