@@ -23,8 +23,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable().authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/icone-siga-logs.png").permitAll()
-                .antMatchers("/v1/pessoas/{id}").permitAll()
-                .antMatchers("/v1/logregistros").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()

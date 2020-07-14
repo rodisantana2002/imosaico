@@ -9,6 +9,7 @@ import com.app.domain.model.Pessoa;
 import com.app.domain.model.Usuario;
 import com.app.helpers.excecoes.excMessages;
 import com.app.service.business.bs.concrets.bsUsuario;
+import com.app.service.business.validator.concrets.validUsuario;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class ctrlUsuario implements Icontroll<Usuario> {
     @Override
     public List<String> salvar(Usuario entity) {
         List<String> msgs = new ArrayList<String>();
-//        msgs = validarUsuario(entity);
+        msgs = validarUsuario(entity);
 
         if (msgs.isEmpty()) {
             //se tudo ok..vai avaliar se precisa criar uma nova pessoa
@@ -70,6 +71,11 @@ public class ctrlUsuario implements Icontroll<Usuario> {
     }
 
     @Override
+    public List<Usuario> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion) {
+        return ibusiness.listarAll(pageNo, pageSize, sortBy, diretion);
+    }
+
+    @Override
     public List<Usuario> obterByFilter(Usuario entity, Predicate<Usuario> predicate) {
         return ibusiness.listarByFilter(entity, predicate);
     }
@@ -80,27 +86,30 @@ public class ctrlUsuario implements Icontroll<Usuario> {
         entity.getPessoa().setEmail(email);
         return ibusiness.listarByFilter(entity, predEMail).stream().findFirst().orElse(null);
     }
-//
-//    private List<String> validarDelete(Usuario entity) {
-//        if (entity.getId() != null) {
-//            regras.add("validarRegistroNaoCadastrado");
-//        }
-//        return ivalidatorUsuario.validarRegras(entity, regras, ibusiness);
-//    }
-//
-//    private List<String> validarUsuario(Usuario entity) {
-//        regras.add("validarCamposObrigatorios");
-//        if (entity.getId() == null) {
-//            regras.add("validarRegistroCadastrado");
-//        } else {
-//            regras.add("validarRegistroNaoCadastrado");
-//        }
-//        return ivalidatorUsuario.validarRegras(entity, regras, ibusiness);
-//    }
+
+    private List<String> validarDelete(Usuario entity) {
+        validUsuario validaDados = new validUsuario();
+
+        if (entity.getId() != null) {
+            validaDados.validarRegistroNaoCadastrado(entity, ibusiness);
+        }
+        return validaDados.getMessages();
+    }
+
+    private List<String> validarUsuario(Usuario entity) {
+        validUsuario validaDados = new validUsuario();
+        validaDados.validarCamposObrigatorios(entity);
+        if (entity.getId() == null) {
+            validaDados.validarRegistroCadastrado(entity, ibusiness);
+        } else {
+            validaDados.validarRegistroNaoCadastrado(entity, ibusiness);
+        }
+        return validaDados.getMessages();
+    }
 
     @Override
     public List<String> deletar(Usuario entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Não será implementado."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -108,8 +117,4 @@ public class ctrlUsuario implements Icontroll<Usuario> {
         return "Usuário";
     }
 
-    @Override
-    public List<Usuario> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

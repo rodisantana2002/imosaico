@@ -30,7 +30,6 @@ public class ctrlSistema implements Icontroll<Sistema> {
     private bsSistema ibusiness;
 
     public ctrlSistema() {
-        super();
     }
 
     public List<String> salvar(Sistema entity) {
@@ -50,6 +49,7 @@ public class ctrlSistema implements Icontroll<Sistema> {
         return msgs;
     }
 
+    @Override
     public List<String> deletar(Sistema entity) {
         List<String> msgs = validarDelete(entity);
 
@@ -71,8 +71,7 @@ public class ctrlSistema implements Icontroll<Sistema> {
 
     @Override
     public List<Sistema> obterTodos() {
-        ArrayList<Sistema> listaSistema = (ArrayList<Sistema>) ibusiness.listarAll();
-        return listaSistema;
+        return ibusiness.listarAll();
     }
 
     @Override
@@ -82,8 +81,7 @@ public class ctrlSistema implements Icontroll<Sistema> {
 
     @Override
     public List<Sistema> obterByFilter(Sistema entity, Predicate<Sistema> predicate) {
-        ArrayList<Sistema> listaSistema = (ArrayList<Sistema>) ibusiness.listarByFilter(entity, predicate);
-        return listaSistema;
+        return ibusiness.listarByFilter(entity, predicate);
     }
 
     private List<String> validarDelete(Sistema entity) {

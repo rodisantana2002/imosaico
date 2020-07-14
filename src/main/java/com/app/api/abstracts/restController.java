@@ -71,7 +71,6 @@ public abstract class restController<T> {
     Map<String, Object> create(@RequestBody T json
     ) {
         List<String> msg = this.controll.salvar(json);
-
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("status", "201");
         m.put("msg", msg);

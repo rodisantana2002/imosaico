@@ -8,6 +8,7 @@ package com.app.service.controlls.controll.concrets;
 import com.app.domain.model.Pessoa;
 import com.app.helpers.excecoes.excMessages;
 import com.app.service.business.bs.concrets.bsPessoa;
+import com.app.service.business.validator.concrets.validPessoa;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     public List<String> salvar(Pessoa entity) {
         List<String> msgs = new ArrayList<String>();
-//        msgs = validar(entity);
+        msgs = validar(entity);
 
         if (msgs.isEmpty()) {
             if (entity.getId() == null) {
@@ -65,16 +66,15 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     @Override
     public List<String> deletar(Pessoa entity) {
-//        List<String> msgs = validarDelete(entity);
-//
-//        if (msgs.isEmpty()) {
-//            deletar(entity);
-//            msgs.add(excMessages.STR_DEL_PESSOA_SUCESSO);
-//            return msgs;
-//        }
-//        msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
-//        return msgs;
-        return null;
+        List<String> msgs = validarDelete(entity);
+
+        if (msgs.isEmpty()) {
+            deletar(entity);
+            msgs.add(excMessages.STR_DEL_PESSOA_SUCESSO);
+            return msgs;
+        }
+        msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
+        return msgs;
     }
 
     @Override
@@ -86,41 +86,39 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     @Override
     public List<Pessoa> obterTodos() {
-        ArrayList<Pessoa> listaPessoa = (ArrayList<Pessoa>) ibusiness.listarAll();
-        return listaPessoa;
+        return ibusiness.listarAll();
     }
 
     @Override
     public List<Pessoa> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return ibusiness.listarAll(pageNo, pageSize, sortBy, diretion);
     }
 
     @Override
     public List<Pessoa> obterByFilter(Pessoa entity, Predicate<Pessoa> predicate) {
-        ArrayList<Pessoa> listaPessoa = (ArrayList<Pessoa>) ibusiness.listarByFilter(entity, predicate);
-        return listaPessoa;
+        return ibusiness.listarByFilter(entity, predicate);
     }
-//
-//    private List<String> validarDelete(Pessoa entity) {
-//        List<String> regras = new ArrayList<String>();
-//
-//        if (entity.getId() != null) {
-//            regras.add("validarPessoaNaoCadastrada");
-//        }
-//        return ivalidator.validarRegras(entity, regras, ibusiness);
-//    }
-//
-//    private List<String> validar(Pessoa entity) {
-//        List<String> regras = new ArrayList<String>();
-//        regras.add("validarCamposObrigatorios");
-//
-//        if (entity.getId() == null) {
-//            regras.add("validarPessoaCadastrada");
-//        } else {
-//            regras.add("validarPessoaNaoCadastrada");
-//        }
-//        return ivalidator.validarRegras(entity, regras, ibusiness);
-//    }
+
+    private List<String> validarDelete(Pessoa entity) {
+        validPessoa validaDados = new validPessoa();
+
+        if (entity.getId() != null) {
+            validaDados.validarPessoaNaoCadastrada(entity, ibusiness);
+        }
+        return validaDados.getMessages();
+    }
+
+    private List<String> validar(Pessoa entity) {
+        validPessoa validaDados = new validPessoa();
+        validaDados.validarCamposObrigatorios(entity, ibusiness);
+
+        if (entity.getId() == null) {
+            validaDados.validarPessoaCadastrada(entity, ibusiness);
+        } else {
+            validaDados.validarPessoaNaoCadastrada(entity, ibusiness);
+        }
+        return validaDados.getMessages();
+    }
 
     @Override
     public String toString() {
