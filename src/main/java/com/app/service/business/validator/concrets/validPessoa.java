@@ -22,17 +22,17 @@ public class validPessoa extends validGeneric<Pessoa> {
 
     public void validarCamposObrigatorios(Pessoa entity, bsPessoa ibusiness) {
         if (entity.getId() != null && entity.getId() == 0) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Identificador" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Identificador" + ").");
         }
         if (entity.getNomecompleto() == null || entity.getNomecompleto().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Nome completo" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Nome completo" + ").");
         }
         if (entity.getEmail() == null || entity.getEmail().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Email" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Email" + ").");
         }
 
         if (entity.getFonecelular() == null || entity.getFonecelular().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Telefone Celular" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Telefone Celular" + ").");
         }
     }
 
@@ -42,22 +42,22 @@ public class validPessoa extends validGeneric<Pessoa> {
         Predicate<Pessoa> predFoneCelular = p -> p.getFonecelular().equals(entity.getFonecelular());
 
         if (ibusiness.listarByFilter(entity, predID).size() > 0) {
-            getLstMsg().add(excMessages.STR_REG_JA_EXISTE);
+            getMessages().add(excMessages.STR_REG_JA_EXISTE);
         }
 
         if (ibusiness.listarByFilter(entity, predEMail).size() > 0) {
-            getLstMsg().add(excMessages.STR_REG_JA_EXISTE + " (Email já foi vinculado a outra Pessoa).");
+            getMessages().add(excMessages.STR_REG_JA_EXISTE + " (Email já foi vinculado a outra Pessoa).");
         }
 
         if (ibusiness.listarByFilter(entity, predFoneCelular).size() > 0) {
-            getLstMsg().add(excMessages.STR_REG_JA_EXISTE + " (Telefone Celular já foi vinculado a outra Pessoa).");
+            getMessages().add(excMessages.STR_REG_JA_EXISTE + " (Telefone Celular já foi vinculado a outra Pessoa).");
         }
     }
 
     public void validarPessoaNaoCadastrada(Pessoa entity, bsPessoa ibusiness) {
         Predicate<Pessoa> predID = p -> p.getId().equals(entity.getId());
         if (ibusiness.listarByFilter(entity, predID).isEmpty()) {
-            getLstMsg().add(excMessages.STR_REG_NAO_EXISTE);
+            getMessages().add(excMessages.STR_REG_NAO_EXISTE);
         }
     }
 }

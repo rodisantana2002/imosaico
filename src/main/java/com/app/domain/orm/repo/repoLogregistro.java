@@ -16,10 +16,3 @@ import org.springframework.stereotype.Repository;
 @Repository("repoLogregistro")
 public interface repoLogregistro extends PagingAndSortingRepository<Logregistro, Long> {
 }
-//public class repoLogregistro extends repoGeneric<Logregistro> implements Irepository<Logregistro> {
-//
-//    public repoLogregistro() {
-//        super();
-//        setClazz(Logregistro.class);
-//    }
-//}

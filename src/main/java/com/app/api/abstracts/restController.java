@@ -23,18 +23,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 public abstract class restController<T> {
 
     @Autowired
-    private Icontroll<T> controll;
+    protected Icontroll<T> controll;
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody
-    List<T> listAll() {
-        List<T> all = (List<T>) this.controll.obterTodos();
-        return all;
+    Map<String, Object> listPages(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction) {
+        List<T> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction);
+        List<T> all = this.controll.obterTodos();
+
+        if (list.isEmpty()) {
+            throw new excEntityNotFoundExcpetion("Nenhum " + this.controll.toString() + " foi localizado!");
+        }
+
+        Map<String, Object> m = new HashMap<String, Object>();
+        m.put("status", "200");
+        m.put("PageNo", pageNo);
+        m.put("PageSize", pageSize);
+        m.put("SortBy", sortBy);
+        m.put("Direction", direction);
+        m.put("PageTotal", Integer.divideUnsigned(all.size(), pageSize));
+        m.put(this.controll.toString(), list);
+        return m;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

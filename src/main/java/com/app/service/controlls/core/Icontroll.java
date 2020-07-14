@@ -23,5 +23,7 @@ public interface Icontroll<T> {
 
     public abstract List<T> obterTodos();
 
+    public abstract List<T> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion);
+
     public abstract List<T> obterByFilter(T entity, Predicate<T> predicate);
 }

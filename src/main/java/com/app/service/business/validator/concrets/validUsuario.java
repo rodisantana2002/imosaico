@@ -24,16 +24,16 @@ public class validUsuario extends validGeneric<Usuario> {
 
     public void validarCamposObrigatorios(Usuario entity) {
         if (entity.getId() != null && entity.getId() == 0) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Identificador" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Identificador" + ").");
         }
         if (entity.getPessoa().getNomecompleto() == null || entity.getPessoa().getNomecompleto().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Nome Completo" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Nome Completo" + ").");
         }
         if (entity.getPessoa().getEmail() == null || entity.getPessoa().getEmail().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Email" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Email" + ").");
         }
         if (entity.getPessoa().getFonecelular() == null || entity.getPessoa().getFonecelular().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Telefone Celular" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Telefone Celular" + ").");
         }
     }
 
@@ -42,19 +42,19 @@ public class validUsuario extends validGeneric<Usuario> {
         Predicate<Usuario> predEMail = p -> p.getPessoa().getEmail().equalsIgnoreCase(entity.getPessoa().getEmail());
 
         if (ibusiness.listarByFilter(entity, predID).size() > 0) {
-            getLstMsg().add(excMessages.STR_REG_JA_EXISTE);
+            getMessages().add(excMessages.STR_REG_JA_EXISTE);
         }
 
         List<Usuario> lstUsuarios = ibusiness.listarByFilter(entity, predEMail);
         if (!lstUsuarios.isEmpty() && lstUsuarios.get(0).getId() != null && lstUsuarios.get(0).getId() != 0) {
-            getLstMsg().add(excMessages.STR_REG_JA_EXISTE + " (Email ja foi vinculado a outro Usuário).");
+            getMessages().add(excMessages.STR_REG_JA_EXISTE + " (Email ja foi vinculado a outro Usuário).");
         }
     }
 
     public void validarRegistroNaoCadastrado(Usuario entity, bsUsuario ibusiness) {
         Predicate<Usuario> predID = p -> p.getId().equals(entity.getId());
         if (ibusiness.listarByFilter(entity, predID).isEmpty()) {
-            getLstMsg().add(excMessages.STR_REG_NAO_EXISTE);
+            getMessages().add(excMessages.STR_REG_NAO_EXISTE);
         }
     }
 }

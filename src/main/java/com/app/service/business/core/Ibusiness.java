@@ -27,5 +27,7 @@ public interface Ibusiness<T> {
 
     public abstract List<T> listarAll();
 
+    public abstract List<T> listarAll(Integer pageNo, Integer pageSize, String sortBy, String direction);
+
     public abstract List<T> listarByFilter(T entity, Predicate<T> predicate);
 }

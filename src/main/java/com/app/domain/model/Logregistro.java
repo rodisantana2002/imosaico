@@ -33,9 +33,11 @@ public class Logregistro extends Core {
     private Sistema sistema;
 
     public Logregistro() {
+        this.sistema = new Sistema();
     }
 
     public Logregistro(Level tipo, String descricao, String log, Sistema sistema, Integer qtde) {
+        this.sistema = new Sistema();
         this.tipo = tipo;
         this.descricao = descricao;
         this.log = log;

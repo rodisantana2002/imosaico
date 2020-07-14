@@ -22,19 +22,19 @@ public class validSistema extends validGeneric<Sistema> {
 
     public void validarCamposObrigatorios(Sistema entity) {
         if (entity.getId() != null && entity.getId() == 0) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Identificador" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Identificador" + ").");
         }
         if (entity.getNome() == null || entity.getNome().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Nome" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Nome" + ").");
         }
         if (entity.getDescricao() == null || entity.getDescricao().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Descrição" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Descrição" + ").");
         }
         if (entity.getLinguagem() == null || entity.getLinguagem().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Linguagem" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Linguagem" + ").");
         }
         if (entity.getTipo() == null || entity.getTipo().getDescricao().trim().isEmpty()) {
-            getLstMsg().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Tipo Sistema" + ").");
+            getMessages().add(excMessages.STR_DADOS_OBRIGATORIOS + " - (" + "Tipo Sistema" + ").");
         }
     }
 
@@ -43,18 +43,18 @@ public class validSistema extends validGeneric<Sistema> {
         Predicate<Sistema> predNome = p -> p.getNome().equalsIgnoreCase(entity.getNome());
 
         if (ibusiness.listarByFilter(entity, predID).size() > 0) {
-            getLstMsg().add(excMessages.STR_REG_JA_EXISTE);
+            getMessages().add(excMessages.STR_REG_JA_EXISTE);
         }
 
         if (ibusiness.listarByFilter(entity, predNome).size() > 0) {
-            getLstMsg().add(excMessages.STR_REG_JA_EXISTE + " (Nome já foi vinculado a outro Sistema).");
+            getMessages().add(excMessages.STR_REG_JA_EXISTE + " (Nome já foi vinculado a outro Sistema).");
         }
     }
 
     public void validarEntidadeNaoCadastrada(Sistema entity, bsSistema ibusiness) {
         Predicate<Sistema> predID = p -> p.getId().equals(entity.getId());
         if (ibusiness.listarByFilter(entity, predID).isEmpty()) {
-            getLstMsg().add(excMessages.STR_REG_NAO_EXISTE);
+            getMessages().add(excMessages.STR_REG_NAO_EXISTE);
         }
     }
 

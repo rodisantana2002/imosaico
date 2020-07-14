@@ -15,14 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("repoSistema")
 public interface repoSistema extends PagingAndSortingRepository<Sistema, Long> {
-}
 
-//@Repository("repoSistema")
-//public class repoSistema extends repoGeneric<Sistema> implements Irepository<Sistema> {
-//
-//    public repoSistema() {
-//        super();
-//        setClazz(Sistema.class);
-//    }
-//
-//}
+}

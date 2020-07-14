@@ -16,6 +16,7 @@ public class excMessages {
     public static final String STR_REG_JA_EXISTE = "Os dados informados já estão cadastrados.";
     public static final String STR_REG_NAO_EXISTE = "Os dados informados não foram localizados ou não estão cadastrados no sistema.";
     public static final String STR_DADOS_OBRIGATORIOS = "Os campos obrigatórios devem ser informados.";
+    public static final String STR_DADOS_VALIDOS = "Os valores devem ser válidos, ou maiores que zero.";
 
     public static final String STR_OPERACAO_SUCESSO = "A operação foi realizada com sucesso";
     public static final String STR_OPERACAO_INSUCESSO = " A operação não pode ser realizada";

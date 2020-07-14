@@ -16,12 +16,3 @@ import org.springframework.stereotype.Repository;
 @Repository("repoPessoa")
 public interface repoPessoa extends PagingAndSortingRepository<Pessoa, Long> {
 }
-
-//@Repository("repoPessoa")
-//public class repoPessoa extends repoGeneric<Pessoa> implements Irepository<Pessoa> {
-//
-//    public repoPessoa() {
-//        super();
-//        setClazz(Pessoa.class);
-//    }
-//}

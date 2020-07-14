@@ -107,4 +107,9 @@ public class ctrlUsuario implements Icontroll<Usuario> {
     public String toString() {
         return "Usuário";
     }
+
+    @Override
+    public List<Usuario> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

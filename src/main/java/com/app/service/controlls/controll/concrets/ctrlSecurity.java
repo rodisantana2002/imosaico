@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ *
+ * @author Rodolfo Santana <RWS Informática>
+ */
 @Repository
 @Transactional
 public class ctrlSecurity implements UserDetailsService {

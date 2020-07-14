@@ -91,6 +91,11 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
     }
 
     @Override
+    public List<Pessoa> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public List<Pessoa> obterByFilter(Pessoa entity, Predicate<Pessoa> predicate) {
         ArrayList<Pessoa> listaPessoa = (ArrayList<Pessoa>) ibusiness.listarByFilter(entity, predicate);
         return listaPessoa;
@@ -121,4 +126,5 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
     public String toString() {
         return "Pessoa";
     }
+
 }

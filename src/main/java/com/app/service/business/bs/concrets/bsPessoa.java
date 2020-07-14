@@ -9,11 +9,16 @@ import com.app.domain.model.Pessoa;
 import com.app.domain.model.core.Icore;
 import com.app.domain.orm.repo.repoPessoa;
 import com.app.service.business.core.Ibusiness;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,5 +69,23 @@ public class bsPessoa implements Ibusiness<Pessoa> {
     @Override
     public List<Pessoa> listarAll() {
         return (List<Pessoa>) iRepository.findAll();
+    }
+
+    @Override
+    public List<Pessoa> listarAll(Integer pageNo, Integer pageSize, String sortBy, String direction) {
+        Pageable paging;
+        if (direction.equals("desc")) {
+            paging = (Pageable) PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+        } else {
+            paging = (Pageable) PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
+        }
+
+        Page<Pessoa> pagedResult = iRepository.findAll(paging);
+
+        if (pagedResult.hasContent()) {
+            return (List<Pessoa>) pagedResult.getContent();
+        } else {
+            return new ArrayList<Pessoa>();
+        }
     }
 }

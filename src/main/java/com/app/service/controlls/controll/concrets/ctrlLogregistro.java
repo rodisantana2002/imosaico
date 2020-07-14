@@ -80,4 +80,9 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
         return new ArrayList<String>();
     }
 
+    @Override
+    public List<Logregistro> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

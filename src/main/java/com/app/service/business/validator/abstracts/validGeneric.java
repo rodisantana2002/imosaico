@@ -14,17 +14,17 @@ import java.util.List;
  */
 public abstract class validGeneric<T> {
 
-    private List<String> lstMsg;
+    private List<String> messages;
 
     public validGeneric() {
-        lstMsg = new ArrayList<String>();
+        messages = new ArrayList<String>();
     }
 
-    public List<String> getLstMsg() {
-        return lstMsg;
+    public List<String> getMessages() {
+        return messages;
     }
 
-    public void setLstMsg(List<String> lstMsg) {
-        this.lstMsg = lstMsg;
+    public void setMessages(List<String> messages) {
+        this.messages = messages;
     }
 }

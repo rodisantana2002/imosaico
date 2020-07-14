@@ -76,33 +76,38 @@ public class ctrlSistema implements Icontroll<Sistema> {
     }
 
     @Override
+    public List<Sistema> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion) {
+        return ibusiness.listarAll(pageNo, pageSize, sortBy, diretion);
+    }
+
+    @Override
     public List<Sistema> obterByFilter(Sistema entity, Predicate<Sistema> predicate) {
         ArrayList<Sistema> listaSistema = (ArrayList<Sistema>) ibusiness.listarByFilter(entity, predicate);
         return listaSistema;
     }
 
     private List<String> validarDelete(Sistema entity) {
-//        List<String> regras = new ArrayList<String>();
-//
-//        if (entity.getId() != null) {
-//            regras.add("validarEntidadeNaoCadastrada");
-//        }
-//        return ivalidator.validarRegras(entity, regras, ibusiness);
-        return null;
+        validSistema validaDados = new validSistema();
+
+        List<String> regras = new ArrayList<String>();
+
+        if (entity.getId() != null) {
+            validaDados.validarEntidadeNaoCadastrada(entity, ibusiness);
+        }
+        return validaDados.getMessages();
     }
 
     private List<String> validar(Sistema entity) {
         validSistema validaDados = new validSistema();
 
         validaDados.validarCamposObrigatorios(entity);
-
         if (entity.getId() == null) {
             validaDados.validarEntidadeCadastrada(entity, ibusiness);
         } else {
             validaDados.validarEntidadeNaoCadastrada(entity, ibusiness);
         }
 
-        return validaDados.getLstMsg();
+        return validaDados.getMessages();
     }
 
     @Override
