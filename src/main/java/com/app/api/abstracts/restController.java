@@ -9,7 +9,7 @@ package com.app.api.abstracts;
  *
  * @author Rodolfo Santana <RWS Informática>
  */
-import com.app.helpers.excecoes.excEntityNotFoundExcpetion;
+import com.app.helpers.excecoes.excEntityNotFoundException;
 import com.app.helpers.excecoes.excMessages;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
@@ -43,10 +43,10 @@ public abstract class restController<T> {
         List<T> all = this.controll.obterTodos();
 
         if (list.isEmpty()) {
-            throw new excEntityNotFoundExcpetion("Nenhum " + this.controll.toString() + " foi localizado!");
+            throw new excEntityNotFoundException("Nenhum " + this.controll.toString() + " foi localizado!");
         }
 
-        Map<String, Object> m = new HashMap<String, Object>();
+        Map<String, Object> m = new HashMap<>();
         m.put("status", "200");
         m.put("PageNo", pageNo);
         m.put("PageSize", pageSize);
@@ -63,7 +63,7 @@ public abstract class restController<T> {
         Optional<T> entity = this.controll.obter(id);
 
         if (!entity.isPresent()) {
-            throw new excEntityNotFoundExcpetion(this.controll.toString() + ":" + id + " não foi localizado!");
+            throw new excEntityNotFoundException(this.controll.toString() + ":" + id + " não foi localizado!");
         }
         return entity.get();
     }
@@ -73,7 +73,7 @@ public abstract class restController<T> {
     Map<String, Object> create(@RequestBody T json
     ) {
         List<String> msg = this.controll.salvar(json);
-        Map<String, Object> m = new HashMap<String, Object>();
+        Map<String, Object> m = new HashMap<>();
         m.put("status", "201");
         m.put("msg", msg);
         return m;
@@ -86,7 +86,7 @@ public abstract class restController<T> {
     ) {
         Optional<T> entity = this.controll.obter(id);
 
-        List<String> msg = new ArrayList<String>();
+        List<String> msg = new ArrayList<>();
         String status;
 
         if (entity.isPresent()) {
@@ -98,7 +98,7 @@ public abstract class restController<T> {
             status = "404 - " + this.controll.toString() + ":" + id + " não foi localizado!";
         }
 
-        Map<String, Object> m = new HashMap<String, Object>();
+        Map<String, Object> m = new HashMap<>();
         m.put("status", status);
         m.put("msg", msg);
         return m;
@@ -109,12 +109,12 @@ public abstract class restController<T> {
     Map<String, Object> delete(@PathVariable Long id
     ) {
         Optional<T> entity = this.controll.obter(id);
-        List<String> msg = new ArrayList<String>();
+        List<String> msg = new ArrayList<>();
         String status;
 
         if (entity.isPresent()) {
             this.controll.deletar(entity.get());
-            Map<String, Object> m = new HashMap<String, Object>();
+            Map<String, Object> m = new HashMap<>();
             m.put(this.controll.toString() + ":" + id + " foi deletado com sucesso!", true);
             status = "204 OK";
         } else {
@@ -122,7 +122,7 @@ public abstract class restController<T> {
             status = "404 - " + this.controll.toString() + ":" + id + " não foi localizado!";
         }
 
-        Map<String, Object> m = new HashMap<String, Object>();
+        Map<String, Object> m = new HashMap<>();
         m.put("status", status);
         m.put("msg", msg);
         return m;

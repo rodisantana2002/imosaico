@@ -1,7 +1,12 @@
 package com.app.service.security.sec;
 
+import com.app.helpers.excecoes.excAcessDeniedException;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import java.util.Collections;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
@@ -29,18 +34,33 @@ public class TokenAuthenticationService {
 
     static Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
+        String user;
 
         if (token != null) {
             // faz parse do token
-            String user = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody()
-                    .getSubject();
+            try {
+                user = Jwts.parser()
+                        .setSigningKey(SECRET)
+                        .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                        .getBody()
+                        .getSubject();
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                if (user != null) {
+                    return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                }
+
+            } catch (SignatureException e) {
+                throw new excAcessDeniedException("Token com assinatura inválida");
+            } catch (MalformedJwtException e) {
+                throw new excAcessDeniedException("Token não esta com o formato válido");
+            } catch (ExpiredJwtException e) {
+                throw new excAcessDeniedException("Token expirou");
+            } catch (UnsupportedJwtException e) {
+                throw new excAcessDeniedException("Token não é suportado");
+            } catch (IllegalArgumentException e) {
+                throw new excAcessDeniedException("Token com argumentos inválidos");
             }
+
         }
         return null;
     }

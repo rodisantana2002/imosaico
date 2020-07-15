@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author Rodolfo Santana <RWS Informática>
  */
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
+@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 @ResponseBody
-public class excEntityNotFoundExcpetion extends RuntimeException {
+public class excAcessDeniedException extends RuntimeException {
 
-    public excEntityNotFoundExcpetion(String msg) {
+    public excAcessDeniedException(String msg) {
         super(msg);
     }
 }
