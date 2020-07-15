@@ -38,8 +38,13 @@ public abstract class restController<T> {
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String direction) {
-        List<T> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction);
+            @RequestParam(defaultValue = "asc") String direction,
+            @RequestParam HashMap<String, String> allFilters
+    ) {
+        if (allFilters == null) {
+            allFilters = new HashMap<String, String>();
+        }
+        List<T> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction, allFilters);
         List<T> all = this.controll.obterTodos();
 
         if (list.isEmpty()) {

@@ -17,7 +17,7 @@
 DROP TABLE sistema;
 DROP TABLE usuario;
 DROP TABLE pessoa;
--- DROP TABLE logregistro;
+DROP TABLE logregistro;
 
 CREATE TABLE pessoa (  id SERIAL NOT NULL PRIMARY KEY,
                         email VARCHAR(100) NULL UNIQUE,
@@ -54,7 +54,7 @@ CREATE TABLE logregistro (id SERIAL NOT NULL PRIMARY KEY,
                           tipo VARCHAR(30) NULL,
                           descricao VARCHAR(500) NULL,
                           log TEXT NULL,
-                          idsistema BIGINT NULL,
+                          origem VARCHAR(200) NULL,
                           qtde int NULL,
                           dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS')
 );

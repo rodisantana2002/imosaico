@@ -10,9 +10,9 @@ package com.app.domain.model.core;
  * @author Rodolfo Santana <RWS Informática>
  */
 public enum Level {
-    INFO("Informação"),
-    WARNING("Atenção"),
-    ERROR("Erro");
+    INFO("Info"),
+    WARNING("Warning"),
+    ERROR("Error");
 
     private String descricao;
 

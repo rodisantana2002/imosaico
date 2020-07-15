@@ -12,6 +12,7 @@ import com.app.service.business.validator.concrets.validPessoa;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,7 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
     }
 
     @Override
-    public List<Pessoa> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion) {
+    public List<Pessoa> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion, Map<String, String> allFilters) {
         return ibusiness.listarAll(pageNo, pageSize, sortBy, diretion);
     }
 

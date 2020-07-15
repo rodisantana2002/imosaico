@@ -74,6 +74,7 @@ public class bsLogregistro implements Ibusiness<Logregistro> {
     @Override
     public List<Logregistro> listarAll(Integer pageNo, Integer pageSize, String sortBy, String direction) {
         Pageable paging;
+
         if (direction.equals("desc")) {
             paging = (Pageable) PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
         } else {
@@ -88,4 +89,5 @@ public class bsLogregistro implements Ibusiness<Logregistro> {
             return new ArrayList<Logregistro>();
         }
     }
+
 }

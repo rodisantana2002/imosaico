@@ -10,8 +10,6 @@ import com.app.domain.model.core.Level;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,21 +25,16 @@ public class Logregistro extends Core {
     private String descricao;
     private Integer qtde;
     private String log;
-
-    @OneToOne
-    @JoinColumn(name = "idsistema")
-    private Sistema sistema;
+    private String origem;
 
     public Logregistro() {
-        this.sistema = new Sistema();
     }
 
-    public Logregistro(Level tipo, String descricao, String log, Sistema sistema, Integer qtde) {
-        this.sistema = new Sistema();
+    public Logregistro(Level tipo, String descricao, String log, String origem, Integer qtde) {
         this.tipo = tipo;
         this.descricao = descricao;
         this.log = log;
-        this.sistema = sistema;
+        this.origem = origem;
         this.qtde = qtde;
     }
 
@@ -69,12 +62,12 @@ public class Logregistro extends Core {
         this.log = log;
     }
 
-    public Sistema getSistema() {
-        return sistema;
+    public String getOrigem() {
+        return origem;
     }
 
-    public void setSistema(Sistema sistema) {
-        this.sistema = sistema;
+    public void setOrigem(String origem) {
+        this.origem = origem;
     }
 
     public Integer getQtde() {
@@ -90,12 +83,7 @@ public class Logregistro extends Core {
                 + "            tipo : " + this.getTipo() + ",\n"
                 + "       descricao : " + this.getDescricao() + ",\n"
                 + "             log :" + this.getLog() + ",\n"
-                + "         sistema{ id:" + this.getSistema().getId() + ",\n"
-                + "                nome:" + this.getSistema().getNome() + ",\n"
-                + "           descricao:" + this.getSistema().getDescricao() + ",\n"
-                + "                tipo:" + this.getSistema().getTipo() + ",\n"
-                + "           linguagem:" + this.getSistema().getLinguagem() + ",\n"
-                + "         }" + ",\n"
+                + "           origem:" + this.getOrigem() + ",\n"
                 + "            qtde:" + this.getQtde() + ",\n"
                 + "      dtregistro:" + this.getDtregistro() + ",\n"
                 + "}";

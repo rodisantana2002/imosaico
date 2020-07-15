@@ -6,6 +6,7 @@
 package com.app.service.controlls.core;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -23,7 +24,8 @@ public interface Icontroll<T> {
 
     public abstract List<T> obterTodos();
 
-    public abstract List<T> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion);
+    public abstract List<T> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion, Map<String, String> allFilters);
 
     public abstract List<T> obterByFilter(T entity, Predicate<T> predicate);
+
 }
