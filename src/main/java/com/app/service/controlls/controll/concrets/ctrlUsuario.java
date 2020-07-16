@@ -11,6 +11,7 @@ import com.app.helpers.excecoes.excMessages;
 import com.app.service.business.bs.concrets.bsUsuario;
 import com.app.service.business.validator.concrets.validUsuario;
 import com.app.service.controlls.core.Icontroll;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +32,11 @@ public class ctrlUsuario implements Icontroll<Usuario> {
     @Autowired
     private bsUsuario ibusiness;
     private ctrlPessoa ctrlPessoa;
-    private List<String> msgs, regras;
+    private Gson gson;
 
     public ctrlUsuario() {
         ctrlPessoa = new ctrlPessoa();
-        msgs = new ArrayList<String>();
-        regras = new ArrayList<String>();
+        gson = new Gson();
     }
 
     @Override
@@ -50,8 +50,9 @@ public class ctrlUsuario implements Icontroll<Usuario> {
 
             if (pessoa != null) {
                 entity.setPessoa(pessoa);
-                ibusiness.create(entity);
+                entity = ibusiness.create(entity);
                 msgs.add(excMessages.STR_REG_USUARIO_SUCESSO);
+                msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
                 return msgs;
             }
         }

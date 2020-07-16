@@ -11,6 +11,7 @@ import com.app.helpers.mensagens.clsPSR;
 import com.app.service.business.bs.concrets.bsLogregistro;
 import com.app.service.business.validator.concrets.validLogregistro;
 import com.app.service.controlls.core.Icontroll;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,12 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
     @Autowired
     private bsLogregistro ibusiness;
 
+    private Gson gson;
+
+    public ctrlLogregistro() {
+        gson = new Gson();
+    }
+
     @Override
     public List<String> salvar(Logregistro entity) {
         List<String> msgs = new ArrayList<String>();
@@ -37,11 +44,12 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
 
         if (msgs.isEmpty()) {
             if (entity.getId() == null) {
-                ibusiness.create(entity);
+                entity = ibusiness.create(entity);
             } else {
-                ibusiness.update(entity);
+                entity = ibusiness.update(entity);
             }
-            msgs.add(excMessages.STR_REG_PESSOA_SUCESSO);
+            msgs.add(excMessages.STR_REG_LOG_SUCESSO);
+            msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
@@ -54,7 +62,7 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
 
         if (msgs.isEmpty()) {
             deletar(entity);
-            msgs.add(excMessages.STR_DEL_PESSOA_SUCESSO);
+            msgs.add(excMessages.STR_DEL_LOG_SUCESSO);
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);

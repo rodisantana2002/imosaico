@@ -6,10 +6,13 @@
 package com.app.domain.model.core;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 
 /**
  *
@@ -22,6 +25,15 @@ public abstract class Core implements Serializable, Icore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dtregistro;
+
+    @PrePersist
+    public void preInsert() {
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        if (dtregistro == null) {
+            dtregistro = fmt.format(new Date());
+        }
+    }
 
     public Long getId() {
         return id;

@@ -10,6 +10,7 @@ import com.app.helpers.excecoes.excMessages;
 import com.app.service.business.bs.concrets.bsPessoa;
 import com.app.service.business.validator.concrets.validPessoa;
 import com.app.service.controlls.core.Icontroll;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,10 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     @Autowired
     private bsPessoa ibusiness;
+    private Gson gson;
 
     public ctrlPessoa() {
+        gson = new Gson();
     }
 
     public List<String> salvar(Pessoa entity) {
@@ -39,11 +42,12 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
         if (msgs.isEmpty()) {
             if (entity.getId() == null) {
-                ibusiness.create(entity);
+                entity = ibusiness.create(entity);
             } else {
-                ibusiness.update(entity);
+                entity = ibusiness.update(entity);
             }
             msgs.add(excMessages.STR_REG_PESSOA_SUCESSO);
+            msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);

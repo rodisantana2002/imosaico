@@ -25,12 +25,14 @@ public class excMessages {
     public static final String STR_REG_USUARIO_SUCESSO = "Usuário registrado com sucesso";
     public static final String STR_REG_PESSOA_SUCESSO = "Pessoa registrada com sucesso";
     public static final String STR_REG_SISTEMA_SUCESSO = "Sistema registrado com sucesso";
+    public static final String STR_REG_LOG_SUCESSO = "Log registrado com sucesso";
     public static final String STR_REG_USUARIO_ALTERAR_SENHA_SUCESSO = "Senha alterada com sucesso";
 
     //removido sucesso entity
     public static final String STR_DEL_USUARIO_SUCESSO = "Usuário removido do sistema com sucesso";
     public static final String STR_DEL_PESSOA_SUCESSO = "Pessoa removida do sistema com sucesso";
     public static final String STR_DEL_SISTEMA_SUCESSO = "Sistema removido do sistema com sucesso";
+    public static final String STR_DEL_LOG_SUCESSO = "Log removido do sistema com sucesso";
 
     //SERVICES
     public static final Integer STATUS_OK = 200;

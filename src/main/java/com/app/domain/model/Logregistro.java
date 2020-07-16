@@ -85,7 +85,7 @@ public class Logregistro extends Core {
                 + "             log :" + this.getLog() + ",\n"
                 + "           origem:" + this.getOrigem() + ",\n"
                 + "            qtde:" + this.getQtde() + ",\n"
-                + "      dtregistro:" + this.getDtregistro() + ",\n"
+                + "      dtregistro:" + this.getDtregistro() + "\n"
                 + "}";
     }
 }
