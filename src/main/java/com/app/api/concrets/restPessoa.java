@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author osboxes
  */
 @RestController
-@RequestMapping("v1/pessoas")
+@RequestMapping("v1/perfis")
 public class restPessoa extends restController<Pessoa> {
 }

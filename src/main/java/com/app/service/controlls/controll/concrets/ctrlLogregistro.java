@@ -20,12 +20,14 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Rodolfo Santana <RWS Informática>
  */
 @Service
+@Transactional
 public class ctrlLogregistro implements Icontroll<Logregistro> {
 
     @Autowired
@@ -103,9 +105,9 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
                     clsPSR.prt("filtrando pelo log");
                     prePadrao = prePadrao.and(preLog);
                 }
-                if (allFilters.containsKey("origem")) {
-                    Predicate<Logregistro> preOrigem = p -> p.getOrigem().toLowerCase().equals(allFilters.get("origem").toLowerCase());
-                    clsPSR.prt("filtrando pela origem");
+                if (allFilters.containsKey("sistema_origem")) {
+                    Predicate<Logregistro> preOrigem = p -> p.getSistema().getNome().toLowerCase().equals(allFilters.get("origem").toLowerCase());
+                    clsPSR.prt("filtrando pelo sistema de origem");
                     prePadrao = prePadrao.and(preOrigem);
                 }
                 if (allFilters.containsKey("dtregistro")) {
@@ -154,6 +156,6 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
 
     @Override
     public String toString() {
-        return "Logregistro";
+        return "Log";
     }
 }

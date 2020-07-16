@@ -10,6 +10,8 @@ import com.app.domain.model.core.Level;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,16 +27,20 @@ public class Logregistro extends Core {
     private String descricao;
     private Integer qtde;
     private String log;
-    private String origem;
+
+    @OneToOne
+    @JoinColumn(name = "idsistema")
+    private Sistema sistema;
 
     public Logregistro() {
+        this.sistema = new Sistema();
     }
 
-    public Logregistro(Level tipo, String descricao, String log, String origem, Integer qtde) {
+    public Logregistro(Level tipo, String descricao, String log, Sistema sistema, Integer qtde) {
         this.tipo = tipo;
         this.descricao = descricao;
         this.log = log;
-        this.origem = origem;
+        this.sistema = sistema;
         this.qtde = qtde;
     }
 
@@ -62,12 +68,12 @@ public class Logregistro extends Core {
         this.log = log;
     }
 
-    public String getOrigem() {
-        return origem;
+    public Sistema getSistema() {
+        return sistema;
     }
 
-    public void setOrigem(String origem) {
-        this.origem = origem;
+    public void setSistema(Sistema sistema) {
+        this.sistema = sistema;
     }
 
     public Integer getQtde() {
@@ -83,7 +89,7 @@ public class Logregistro extends Core {
                 + "            tipo : " + this.getTipo() + ",\n"
                 + "       descricao : " + this.getDescricao() + ",\n"
                 + "             log :" + this.getLog() + ",\n"
-                + "           origem:" + this.getOrigem() + ",\n"
+                + "           origem:" + this.getSistema().getNome() + ",\n"
                 + "            qtde:" + this.getQtde() + ",\n"
                 + "      dtregistro:" + this.getDtregistro() + "\n"
                 + "}";

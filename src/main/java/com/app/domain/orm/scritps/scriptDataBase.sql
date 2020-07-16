@@ -54,7 +54,7 @@ CREATE TABLE logregistro (id SERIAL NOT NULL PRIMARY KEY,
                           tipo VARCHAR(30) NULL,
                           descricao VARCHAR(500) NULL,
                           log TEXT NULL,
-                          origem VARCHAR(200) NULL,
+                          idsistema BIGINT NULL,
                           qtde int NULL,
                           dtregistro VARCHAR(30) NULL DEFAULT TO_CHAR(CURRENT_TIMESTAMP,'DD/MM/YYYY HH:MM:SS')
 );
