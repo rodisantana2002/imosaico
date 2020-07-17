@@ -53,10 +53,12 @@ public class ctrlUsuario implements Icontroll<Usuario> {
                 entity = ibusiness.create(entity);
                 msgs.add(excMessages.STR_REG_USUARIO_SUCESSO);
                 msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
+                msgs.add("Status 200");
                 return msgs;
             }
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
+        msgs.add("Status 400");
         return msgs;
     }
 

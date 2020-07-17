@@ -7,6 +7,7 @@ package com.app.domain.model;
 
 import com.app.domain.model.core.Core;
 import com.app.domain.model.core.Level;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  *
  * @author Rodolfo Santana <RWS Informática>
  */
+@JsonFilter("FiltrarLog")
 @Entity
 @Table(name = "logregistro")
 public class Logregistro extends Core {
@@ -39,7 +41,9 @@ public class Logregistro extends Core {
     public Logregistro(Level tipo, String descricao, String log, Sistema sistema, Integer qtde) {
         this.tipo = tipo;
         this.descricao = descricao;
+
         this.log = log;
+
         this.sistema = sistema;
         this.qtde = qtde;
     }

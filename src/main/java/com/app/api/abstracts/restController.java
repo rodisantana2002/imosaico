@@ -11,15 +11,21 @@ package com.app.api.abstracts;
  */
 import com.app.helpers.excecoes.excEntityNotFoundException;
 import com.app.helpers.excecoes.excMessages;
+import com.app.helpers.excecoes.excViolacaoRegrasNegocio;
+import com.app.helpers.types.clsMappingFilterUtils;
 import com.app.service.controlls.core.Icontroll;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,82 +40,113 @@ public abstract class restController<T> {
 
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody
-    Map<String, Object> listPages(
+    ResponseEntity<?> listPages(
+            HttpServletResponse response,
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String direction,
-            @RequestParam HashMap<String, String> allFilters
+            @RequestParam Optional<HashMap<String, String>> allFilters
     ) {
-        if (allFilters == null) {
-            allFilters = new HashMap<String, String>();
-        }
-        List<T> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction, allFilters);
+
+        //filtra e obtem dados
+        List<T> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction, allFilters.orElse(new HashMap<>()));
         List<T> all = this.controll.obterTodos();
 
         if (list.isEmpty()) {
             throw new excEntityNotFoundException("Nenhum " + this.controll.toString() + " foi localizado!");
         }
 
-        Map<String, Object> m = new HashMap<>();
-        m.put("status", "200");
-        m.put("PageNo", pageNo);
-        m.put("PageSize", pageSize);
-        m.put("SortBy", sortBy);
-        m.put("Direction", direction);
-        m.put("PageTotal", Integer.divideUnsigned(all.size(), pageSize));
-        m.put(this.controll.toString() + "s", list);
-        return m;
+        // prepara o Header
+        Integer pageTotal = (all.size() / pageSize);
+        if ((all.size() % pageSize) > 0) {
+            pageTotal++;
+        }
+
+        response.addHeader("pageNo", String.valueOf(pageNo));
+        response.addHeader("pageSize", String.valueOf(pageSize));
+        response.addHeader("pageTotal", String.valueOf(pageTotal));
+        response.addHeader("regsTotal", String.valueOf(all.size()));
+        response.addHeader("sortBy", sortBy);
+        response.addHeader("direction", direction);
+
+        //aplica filtro para remover atributos do retorno
+        //limita fileds de retorno no Json conforme lista de fields informados
+        MappingJacksonValue mappingValue = clsMappingFilterUtils.applyFilter(list, clsMappingFilterUtils.JsonFilterMode.EXCLUDE_FIELD_MODE, "Filtrar" + this.controll.toString(), "");
+
+        return ResponseEntity.ok(mappingValue);
+
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    T get(@PathVariable Long id) {
+    ResponseEntity<?> get(@PathVariable Long id) {
         Optional<T> entity = this.controll.obter(id);
 
         if (!entity.isPresent()) {
             throw new excEntityNotFoundException(this.controll.toString() + ":" + id + " não foi localizado!");
         }
-        return entity.get();
+
+        MappingJacksonValue mappingValue = clsMappingFilterUtils.applyFilter(entity.get(), clsMappingFilterUtils.JsonFilterMode.EXCLUDE_FIELD_MODE, "Filtrar" + this.controll.toString(), "");
+        return ResponseEntity.ok(mappingValue);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     Map<String, Object> create(@RequestBody T json
     ) {
         List<String> msg = this.controll.salvar(json);
         Map<String, Object> m = new HashMap<>();
-        m.put("status", "201");
+
+        if (msg.contains("Status 400")) {
+            List<String> msgs = new ArrayList<>();
+
+            for (String var : msg) {
+                msgs.add(var);
+            }
+            throw new excViolacaoRegrasNegocio(msgs.toString());
+        }
         m.put("msg", msg);
         return m;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    Map<String, Object> update(@PathVariable Long id,
-            @RequestBody T json
+    Map<String, Object> update(@PathVariable Long id, @RequestBody T json
     ) {
         Optional<T> entity = this.controll.obter(id);
+        JSONObject jsono = new JSONObject(json);
+
+        //verifica se os ids informados conferem
+        if (jsono.getLong("id") != id) {
+            throw new excEntityNotFoundException(this.controll.toString() + ":" + String.valueOf(jsono.getLong("id")) + " não confere com parametro Id passado pela Url!(" + id + ")");
+        }
 
         List<String> msg = new ArrayList<>();
         String status;
 
         if (entity.isPresent()) {
-            BeanUtils.copyProperties(json, entity);
+            BeanUtils.copyProperties(json, entity.get());
             msg = this.controll.salvar(entity.get());
-            status = "200 OK";
+
+            if (msg.contains("Status 400")) {
+                List<String> msgs = new ArrayList<>();
+
+                for (String var : msg) {
+                    msgs.add(var);
+                }
+                throw new excViolacaoRegrasNegocio(msgs.toString());
+            }
         } else {
-            msg.add(excMessages.STR_REG_NAO_EXISTE);
-            status = "404 - " + this.controll.toString() + ":" + id + " não foi localizado!";
+            throw new excEntityNotFoundException(this.controll.toString() + ":" + id + " não foi localizado!");
         }
 
         Map<String, Object> m = new HashMap<>();
-        m.put("status", status);
         m.put("msg", msg);
         return m;
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     Map<String, Object> delete(@PathVariable Long id
     ) {

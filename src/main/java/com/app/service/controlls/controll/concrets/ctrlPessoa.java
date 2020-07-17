@@ -48,9 +48,11 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
             }
             msgs.add(excMessages.STR_REG_PESSOA_SUCESSO);
             msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
+            msgs.add("Status 200");
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
+        msgs.add("Status 400");
         return msgs;
     }
 

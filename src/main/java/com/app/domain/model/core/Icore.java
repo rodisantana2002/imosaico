@@ -9,7 +9,7 @@ package com.app.domain.model.core;
  *
  * @author Rodolfo Santana <RWS Informática>
  */
-public interface Icore {
+public interface Icore<T> {
 
     public Long getId();
 

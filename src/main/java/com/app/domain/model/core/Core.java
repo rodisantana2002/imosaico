@@ -19,7 +19,7 @@ import javax.persistence.PrePersist;
  * @author Rodolfo Santana <RWS Informática>
  */
 @MappedSuperclass
-public abstract class Core implements Serializable, Icore {
+public abstract class Core<T> implements Serializable, Icore<T> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
