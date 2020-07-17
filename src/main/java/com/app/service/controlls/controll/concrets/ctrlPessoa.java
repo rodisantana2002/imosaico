@@ -76,7 +76,7 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
         List<String> msgs = validarDelete(entity);
 
         if (msgs.isEmpty()) {
-            deletar(entity);
+            ibusiness.deletar(entity);
             msgs.add(excMessages.STR_DEL_PESSOA_SUCESSO);
             return msgs;
         }

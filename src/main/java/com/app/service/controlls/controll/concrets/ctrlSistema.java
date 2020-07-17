@@ -61,7 +61,7 @@ public class ctrlSistema implements Icontroll<Sistema> {
         List<String> msgs = validarDelete(entity);
 
         if (msgs.isEmpty()) {
-            deletar(entity);
+            ibusiness.deletar(entity);
             msgs.add(excMessages.STR_DEL_SISTEMA_SUCESSO);
             return msgs;
         }

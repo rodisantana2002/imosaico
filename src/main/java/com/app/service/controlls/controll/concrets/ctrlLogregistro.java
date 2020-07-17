@@ -65,7 +65,7 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
         List<String> msgs = validarDelete(entity);
 
         if (msgs.isEmpty()) {
-            deletar(entity);
+            ibusiness.deletarById(entity);
             msgs.add(excMessages.STR_DEL_LOG_SUCESSO);
             return msgs;
         }
