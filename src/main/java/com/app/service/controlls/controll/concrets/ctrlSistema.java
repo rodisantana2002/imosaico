@@ -39,16 +39,21 @@ public class ctrlSistema implements Icontroll<Sistema> {
     public List<String> salvar(Sistema entity) {
         List<String> msgs = new ArrayList<String>();
         msgs = validar(entity);
+        String link = "";
 
         if (msgs.isEmpty()) {
             if (entity.getId() == null) {
                 entity = ibusiness.create(entity);
+                link = "v1/sistemas/" + entity.getId();
             } else {
                 entity = ibusiness.update(entity);
             }
             msgs.add(excMessages.STR_REG_SISTEMA_SUCESSO);
             msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
             msgs.add("Status 200");
+            if (!link.isEmpty()) {
+                msgs.add(link);
+            }
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);

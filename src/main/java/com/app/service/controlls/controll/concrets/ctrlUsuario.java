@@ -31,11 +31,11 @@ public class ctrlUsuario implements Icontroll<Usuario> {
 
     @Autowired
     private bsUsuario ibusiness;
+    @Autowired
     private ctrlPessoa ctrlPessoa;
     private Gson gson;
 
     public ctrlUsuario() {
-        ctrlPessoa = new ctrlPessoa();
         gson = new Gson();
     }
 
@@ -52,7 +52,6 @@ public class ctrlUsuario implements Icontroll<Usuario> {
                 entity.setPessoa(pessoa);
                 entity = ibusiness.create(entity);
                 msgs.add(excMessages.STR_REG_USUARIO_SUCESSO);
-                msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
                 msgs.add("Status 200");
                 return msgs;
             }

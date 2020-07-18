@@ -43,16 +43,21 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
     public List<String> salvar(Logregistro entity) {
         List<String> msgs = new ArrayList<String>();
         msgs = validar(entity);
+        String link = "";
 
         if (msgs.isEmpty()) {
             if (entity.getId() == null) {
                 entity = ibusiness.create(entity);
+                link = "v1/logs/" + entity.getId();
             } else {
                 entity = ibusiness.update(entity);
             }
             msgs.add(excMessages.STR_REG_LOG_SUCESSO);
             msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
             msgs.add("Status 200");
+            if (!link.isEmpty()) {
+                msgs.add(link);
+            }
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);

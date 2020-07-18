@@ -15,7 +15,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
@@ -36,13 +35,6 @@ public class Usuario extends Core implements UserDetails {
         this.pessoa = new Pessoa();
     }
 
-    public Usuario(String email, String senha) {
-        BCryptPasswordEncoder cripto = new BCryptPasswordEncoder();
-        this.pessoa = new Pessoa();
-        this.pessoa.setEmail(email);
-        this.senha = cripto.encode(senha);
-    }
-
     public Pessoa getPessoa() {
         return pessoa;
     }
@@ -59,6 +51,10 @@ public class Usuario extends Core implements UserDetails {
     @Override
     public String getPassword() {
         return this.senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     @Override
@@ -85,5 +81,4 @@ public class Usuario extends Core implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }

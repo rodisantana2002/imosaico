@@ -92,9 +92,9 @@ public abstract class restController<T> {
 
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    Map<String, Object> create(@RequestBody T json
+    Map<String, Object> create(@RequestBody T entity
     ) {
-        List<String> msg = this.controll.salvar(json);
+        List<String> msg = this.controll.salvar(entity);
         Map<String, Object> m = new HashMap<>();
 
         if (msg.contains("Status 400")) {
@@ -111,10 +111,10 @@ public abstract class restController<T> {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    Map<String, Object> update(@PathVariable Long id, @RequestBody T json
+    Map<String, Object> update(@PathVariable Long id, @RequestBody T entity
     ) {
-        Optional<T> entity = this.controll.obter(id);
-        JSONObject jsono = new JSONObject(json);
+        Optional<T> objTemp = this.controll.obter(id);
+        JSONObject jsono = new JSONObject(entity);
 
         //verifica se os ids informados conferem
         if (jsono.getLong("id") != id) {
@@ -123,9 +123,9 @@ public abstract class restController<T> {
 
         List<String> msg = new ArrayList<>();
 
-        if (entity.isPresent()) {
-            BeanUtils.copyProperties(json, entity.get());
-            msg = this.controll.salvar(entity.get());
+        if (objTemp.isPresent()) {
+            BeanUtils.copyProperties(entity, objTemp.get());
+            msg = this.controll.salvar(objTemp.get());
 
             if (msg.contains("Status 400")) {
                 List<String> msgs = new ArrayList<>();

@@ -40,6 +40,7 @@ public class validUsuario extends validGeneric<Usuario> {
     public void validarRegistroCadastrado(Usuario entity, bsUsuario ibusiness) {
         Predicate<Usuario> predID = p -> p.getId().equals(entity.getId());
         Predicate<Usuario> predEMail = p -> p.getPessoa().getEmail().equalsIgnoreCase(entity.getPessoa().getEmail());
+        Predicate<Usuario> predFoneCelular = p -> p.getPessoa().getFonecelular().equals(entity.getPessoa().getFonecelular());
 
         if (ibusiness.listarByFilter(entity, predID).size() > 0) {
             getMessages().add(excMessages.STR_REG_JA_EXISTE);
@@ -48,6 +49,10 @@ public class validUsuario extends validGeneric<Usuario> {
         List<Usuario> lstUsuarios = ibusiness.listarByFilter(entity, predEMail);
         if (!lstUsuarios.isEmpty() && lstUsuarios.get(0).getId() != null && lstUsuarios.get(0).getId() != 0) {
             getMessages().add(excMessages.STR_REG_JA_EXISTE + " (Email ja foi vinculado a outro Usuário).");
+        }
+
+        if (ibusiness.listarByFilter(entity, predFoneCelular).size() > 0) {
+            getMessages().add(excMessages.STR_REG_JA_EXISTE + " (Telefone Celular já foi vinculado a outra Pessoa).");
         }
     }
 
