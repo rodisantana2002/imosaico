@@ -113,7 +113,7 @@ public abstract class restController<T> {
         return m;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
     Map<String, Object> update(@PathVariable Long id, @RequestBody T entity
     ) {
