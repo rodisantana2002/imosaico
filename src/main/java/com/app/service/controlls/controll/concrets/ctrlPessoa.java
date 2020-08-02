@@ -7,6 +7,7 @@ package com.app.service.controlls.controll.concrets;
 
 import com.app.domain.model.Pessoa;
 import com.app.helpers.excecoes.excMessages;
+import com.app.helpers.mensagens.clsPSR;
 import com.app.service.business.bs.concrets.bsPessoa;
 import com.app.service.business.validator.concrets.validPessoa;
 import com.app.service.controlls.core.Icontroll;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,7 +105,21 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     @Override
     public List<Pessoa> obterTodosPage(Integer pageNo, Integer pageSize, String sortBy, String diretion, Map<String, String> allFilters) {
+        // predicate generic
+        Predicate<Pessoa> prePadrao = p -> (1 == 1);
+
+        if (allFilters != null) {
+            if (!allFilters.isEmpty()) {
+                if (allFilters.containsKey("email")) {
+                    Predicate<Pessoa> preEmail = p -> p.getEmail().equals(allFilters.get("email"));
+                    clsPSR.prt("filtrando pelo email");
+                    prePadrao = prePadrao.and(preEmail);
+                }
+                return ibusiness.listarAll(pageNo, pageSize, sortBy, diretion).stream().filter(prePadrao).collect(Collectors.toList());
+            }
+        }
         return ibusiness.listarAll(pageNo, pageSize, sortBy, diretion);
+
     }
 
     @Override
@@ -134,7 +150,7 @@ public class ctrlPessoa implements Icontroll<Pessoa> {
 
     @Override
     public String toString() {
-        return "Pessoa";
+        return "Perfil";
     }
 
 }

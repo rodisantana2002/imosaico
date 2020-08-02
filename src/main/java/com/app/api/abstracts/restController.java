@@ -45,11 +45,15 @@ public abstract class restController<T> {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String direction,
-            @RequestParam Optional<HashMap<String, String>> allFilters
+            @RequestParam HashMap<String, String> allFilters
     ) {
 
+        if (allFilters == null) {
+            allFilters = new HashMap<>();
+        }
+
         //filtra e obtem dados
-        List<T> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction, allFilters.orElse(new HashMap<>()));
+        List<T> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction, allFilters);
         List<T> all = this.controll.obterTodos();
 
         if (list.isEmpty()) {

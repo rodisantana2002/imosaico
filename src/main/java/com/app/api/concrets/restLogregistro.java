@@ -11,7 +11,6 @@ import com.app.helpers.excecoes.excEntityNotFoundException;
 import com.app.helpers.types.clsMappingFilterUtils;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -41,11 +40,15 @@ public class restLogregistro extends restController<Logregistro> {
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "asc") String direction,
-            @RequestParam Optional<HashMap<String, String>> allFilters
+            @RequestParam HashMap<String, String> allFilters
     ) {
 
+        if (allFilters == null) {
+            allFilters = new HashMap<>();
+        }
+
         //Obter dados
-        List<Logregistro> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction, allFilters.orElse(new HashMap<>()));
+        List<Logregistro> list = this.controll.obterTodosPage(pageNo, pageSize, sortBy, direction, allFilters);
         List<Logregistro> all = this.controll.obterTodos();
 
         if (list.isEmpty()) {
