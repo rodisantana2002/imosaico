@@ -6,6 +6,7 @@
 package com.app.service.controlls.controll.concrets;
 
 import com.app.domain.model.Logregistro;
+import com.app.domain.model.Sistema;
 import com.app.domain.model.transitorio.Dashboard;
 import com.app.service.controlls.core.Icontroll;
 import java.util.HashMap;
@@ -27,6 +28,8 @@ public class ctrlDashboard implements Icontroll<Dashboard> {
 
     @Autowired
     private ctrlLogregistro logregistro;
+    @Autowired
+    private ctrlSistema sistema;
 
     @Override
     public List<String> salvar(Dashboard entity) {
@@ -46,12 +49,14 @@ public class ctrlDashboard implements Icontroll<Dashboard> {
     public Dashboard obter() {
         Dashboard dashboard = new Dashboard();
         List<Logregistro> logs = logregistro.obterTodos();
+        List<Sistema> sistemas = sistema.obterTodos();
         Map<String, Long> mapTipos = new HashMap<>();
         //------------------------------------------------------------------------------------------
         mapTipos.put("Info", logs.stream().filter(p -> p.getTipo().getDescricao().equals("Info")).count());
         mapTipos.put("Warning", logs.stream().filter(p -> p.getTipo().getDescricao().equals("Warning")).count());
         mapTipos.put("Error", logs.stream().filter(p -> p.getTipo().getDescricao().equals("Error")).count());
-
+        
+        dashboard.setTotalSistemas(sistemas.size());
         dashboard.setTotalGeralLogs(logs.size());
         dashboard.setTotalPorTipo(mapTipos);
 

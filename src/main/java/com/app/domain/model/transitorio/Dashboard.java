@@ -17,11 +17,13 @@ import java.util.Map;
 @JsonFilter("FiltrarDashboard")
 public class Dashboard extends Core {
 
+    private Integer totalSistemas;
     private Integer totalGeralLogs;
     private Map<String, Long> totalPorSistema;
     private Map<String, Long> totalPorTipo;
 
     public Dashboard() {
+        this.totalSistemas = 0;
         this.totalGeralLogs = 0;
         this.totalPorSistema = new HashMap<>();
         this.totalPorTipo = new HashMap<>();
@@ -49,5 +51,13 @@ public class Dashboard extends Core {
 
     public void setTotalPorTipo(Map<String, Long> totalPorTipo) {
         this.totalPorTipo = totalPorTipo;
+    }
+
+    public Integer getTotalSistemas() {
+        return totalSistemas;
+    }
+
+    public void setTotalSistemas(Integer totalSistemas) {
+        this.totalSistemas = totalSistemas;
     }
 }
