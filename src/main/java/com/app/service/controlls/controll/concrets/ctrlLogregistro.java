@@ -54,14 +54,12 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
             }
             msgs.add(excMessages.STR_REG_LOG_SUCESSO);
             msgs.add(gson.toJson(ibusiness.consultar(entity).get()));
-            msgs.add("Status 200");
             if (!link.isEmpty()) {
                 msgs.add(link);
             }
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
-        msgs.add("Status 400");
         return msgs;
     }
 

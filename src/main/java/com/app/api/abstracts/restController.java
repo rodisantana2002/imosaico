@@ -109,7 +109,8 @@ public abstract class restController<T> {
             }
             throw new excViolacaoRegrasNegocio(msgs.toString());
         }
-        m.put("msg", msg);
+        m.put("message", msg);
+        m.put("status", "200");
         return m;
     }
 
@@ -144,7 +145,8 @@ public abstract class restController<T> {
         }
 
         Map<String, Object> m = new HashMap<>();
-        m.put("msg", msg);
+        m.put("message", msg);
+        m.put("status", "200");
         return m;
     }
 
@@ -172,7 +174,8 @@ public abstract class restController<T> {
         }
 
         Map<String, Object> m = new HashMap<>();
-        m.put("msg", msg);
+        m.put("message", msg);
+        m.put("status", "200");
         return m;
     }
 }

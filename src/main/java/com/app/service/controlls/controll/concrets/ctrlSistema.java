@@ -57,7 +57,6 @@ public class ctrlSistema implements Icontroll<Sistema> {
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
-        msgs.add("Status 400");
         return msgs;
     }
 
