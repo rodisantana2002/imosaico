@@ -53,8 +53,14 @@ public class validSistema extends validGeneric<Sistema> {
 
     public void validarEntidadeNaoCadastrada(Sistema entity, bsSistema ibusiness) {
         Predicate<Sistema> predID = p -> p.getId().equals(entity.getId());
+        Predicate<Sistema> predNome = (p -> p.getNome().equalsIgnoreCase(entity.getNome()) && p.getId() != entity.getId());
+
         if (ibusiness.listarByFilter(entity, predID).isEmpty()) {
             getMessages().add(excMessages.STR_REG_NAO_EXISTE);
+        }
+
+        if (ibusiness.listarByFilter(entity, predNome).size() > 0) {
+            getMessages().add(excMessages.STR_REG_JA_EXISTE + " (Nome já foi vinculado a outro Sistema).");
         }
     }
 
