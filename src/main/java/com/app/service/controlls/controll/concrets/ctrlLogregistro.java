@@ -60,6 +60,7 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
+        msgs.add("Status 400");
         return msgs;
     }
 

@@ -1,4 +1,4 @@
-/*
+/* msgs.add("Status 400");
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -57,6 +57,7 @@ public class ctrlSistema implements Icontroll<Sistema> {
             return msgs;
         }
         msgs.add(excMessages.STR_OPERACAO_INSUCESSO);
+        msgs.add("Status 400");
         return msgs;
     }
 
