@@ -11,9 +11,12 @@ import com.app.helpers.excecoes.excEntityNotFoundException;
 import com.app.helpers.types.clsMappingFilterUtils;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,6 +74,19 @@ public class restLogregistro extends restController<Logregistro> {
         //aplica filtro para remover atributos do retorno
         MappingJacksonValue mappingValue = clsMappingFilterUtils.applyFilter(list, clsMappingFilterUtils.JsonFilterMode.EXCLUDE_FIELD_MODE, "Filtrar" + this.controll.toString(), "log");
 
+        return ResponseEntity.ok(mappingValue);
+    }
+
+    @RequestMapping(value = "/{id}/log", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody
+    ResponseEntity<?> getDetail(@PathVariable Long id) {
+        Optional<Logregistro> entity = this.controll.obter(id);
+
+        if (!entity.isPresent()) {
+            throw new excEntityNotFoundException(this.controll.toString() + ":" + id + " não foi localizado!");
+        }
+
+        MappingJacksonValue mappingValue = clsMappingFilterUtils.applyFilter(entity.get().getLog(), clsMappingFilterUtils.JsonFilterMode.EXCLUDE_FIELD_MODE, "Filtrar" + this.controll.toString(), "");
         return ResponseEntity.ok(mappingValue);
     }
 }
