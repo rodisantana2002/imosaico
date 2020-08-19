@@ -111,7 +111,7 @@ public class ctrlLogregistro implements Icontroll<Logregistro> {
                     clsPSR.prt("filtrando pelo log");
                     prePadrao = prePadrao.and(preLog);
                 }
-                if (allFilters.containsKey("sistema_origem")) {
+                if (allFilters.containsKey("origem")) {
                     Predicate<Logregistro> preOrigem = p -> p.getSistema().getNome().toLowerCase().equals(allFilters.get("origem").toLowerCase());
                     clsPSR.prt("filtrando pelo sistema de origem");
                     prePadrao = prePadrao.and(preOrigem);
