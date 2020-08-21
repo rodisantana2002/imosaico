@@ -51,11 +51,17 @@ public class ctrlDashboard implements Icontroll<Dashboard> {
         List<Logregistro> logs = logregistro.obterTodos();
         List<Sistema> sistemas = sistema.obterTodos();
         Map<String, Long> mapTipos = new HashMap<>();
+        Map<String, Long> mapSistemas = new HashMap<>();
         //------------------------------------------------------------------------------------------
         mapTipos.put("Info", logs.stream().filter(p -> p.getTipo().getDescricao().equals("Info")).count());
         mapTipos.put("Warning", logs.stream().filter(p -> p.getTipo().getDescricao().equals("Warning")).count());
         mapTipos.put("Error", logs.stream().filter(p -> p.getTipo().getDescricao().equals("Error")).count());
         
+        sistemas.forEach((sistema) -> {
+            Predicate<Logregistro> predLog = p -> p.getSistema().getId().equals(sistema.getId());
+            mapSistemas.put(sistema.getNome(), logs.stream().filter(predLog).count());
+        });
+        dashboard.setTotalPorSistema(mapSistemas);
         dashboard.setTotalSistemas(sistemas.size());
         dashboard.setTotalGeralLogs(logs.size());
         dashboard.setTotalPorTipo(mapTipos);
